@@ -1,0 +1,1 @@
+mongodb+srv://mhladik:shopapp2023@cluster0.8jtbniq.mongodb.net/?retryWrites=true&w=majority
