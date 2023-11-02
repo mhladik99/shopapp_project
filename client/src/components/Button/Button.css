@@ -44,3 +44,28 @@
 .toggle-button:hover {
   background-color: #007BFF;
 }
+.main-button {
+  background-color: #ffffff;
+  color: #000000;
+  margin-left: 20px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: larger;
+  margin-top: 20px;
+}
+
+.main-button:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
