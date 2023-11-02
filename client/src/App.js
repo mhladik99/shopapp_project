@@ -1,10 +1,17 @@
+import React from 'react';
 import './App.css';
+import Main from "./pages/Main";
+import ShoppingDetail from "./pages/ShoppingDetail";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <p>Ahoj světe</p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/shopping-detail" element={<ShoppingDetail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

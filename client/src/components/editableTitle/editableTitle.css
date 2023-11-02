@@ -1,0 +1,74 @@
+.editable-title-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .editable-title {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: left;
+    margin-left: 200px;
+    margin-top: 25px;
+  }
+  
+  .editable-input {
+    border: 2px solid #ccc;
+    font-size: 30px;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  .editable-buttons {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    margin-left: 10px;
+  }
+  
+  .editable-button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .editable-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .editable-edit-button {
+    background-color: #007BFF;
+  }
+  
+  .editable-save-button {
+    background-color: #007BFF;
+  }
+  
+  .editable-button-icon {
+    margin-right: 5px;
+  }
+
+   /* Media query for smaller screens */
+ @media screen and (max-width: 1024px) {
+    .editable-title {
+        margin-left: 100px;
+    }
+    .editable-buttons {
+        display: flex;
+        align-items: center;
+        margin-top: 30px;
+        margin-right: 100px;
+      }
+      .editable-input {
+        border: 2px solid #ccc;
+        font-size: 25px;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+  }
