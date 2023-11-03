@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaPencilAlt } from 'react-icons/fa';
 import './editableTitle.css';
 
-const EditableTitle = () => {
+const EditableTitle = ({ isOwner }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState("Název nákupního seznamu");
 
@@ -41,9 +41,11 @@ const EditableTitle = () => {
             Uložit
           </button>
         ) : (
-          <button onClick={handleEditClick} className="editable-button editable-edit-button">
-            <FaPencilAlt className="editable-button-icon" /> Upravit
-          </button>
+          <ownerPermission isOwner={isOwner}>
+            <button onClick={handleEditClick} className="editable-button editable-edit-button">
+              <FaPencilAlt className="editable-button-icon" /> Upravit
+            </button>
+          </ownerPermission>
         )}
       </div>
     </div>

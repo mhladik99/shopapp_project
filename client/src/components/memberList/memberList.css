@@ -1,18 +1,23 @@
-.title-container {
+/* Style for the h3 element */
+h3 {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     text-align: left;
+    font-size: 1.5rem;
+    color: #333;
     margin-bottom: 20px;
   }
-
-  .title {
-    font-size: 24px;
+  
+  .container {
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: center;
   }
 
- /* Media query for smaller screens */
+   /* Media query for smaller screens */
  @media screen and (max-width: 1024px) {
-    .title {
+    h3 {
       margin-left: 100px;
       margin-right: 100px;
     }
