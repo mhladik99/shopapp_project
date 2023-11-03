@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import './memberList.css';
+
 import Select from 'react-select';
 import Button from '../Button/Button';
 import Title from '../Title/Title';
-import './memberList.css';
 
 const MemberList = ({ ownerInfo, isOwner, setIsOwner }) => {
   const existingMembers = [

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import './shoppingDetail.css';
+
 import EditableTitle from '../components/editableTitle/editableTitle';
 import Title from '../components/Title/Title';
 import ShoppingList from '../components/shoppingList/shoppingList';
 import Button from '../components/Button/Button';
-import './shoppingDetail.css';
 import MemberList from '../components/memberList/memberList';
 import BackButton from '../components/backButton/backButton';
 

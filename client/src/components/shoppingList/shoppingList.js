@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import AddItemForm from '../addItemForm/addItemForm';
 import './shoppingList.css';
+
+import AddItemForm from '../addItemForm/addItemForm';
 import Button from '../Button/Button';
 
 const ShowCompletedProductsButton = ({ showCompleted, onShowCompleted }) => {

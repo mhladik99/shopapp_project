@@ -78,6 +78,7 @@
     font-style: italic;
     text-decoration: line-through;
   }
+  
   /* Media query for smaller screens */
   @media screen and (max-width: 1024px) {
     .container {
