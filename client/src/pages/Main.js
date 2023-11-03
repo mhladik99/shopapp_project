@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Main = () => {
   return (
     <div>
-      Tohle je hlavní stránka
+      <Link to="/shopping-detail">shopping-detail</Link>
     </div>
   )
 }

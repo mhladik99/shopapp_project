@@ -1,13 +1,10 @@
-// MemberList.js
 import React, { useState } from 'react';
 import Select from 'react-select';
 import Button from '../Button/Button';
 import Title from '../Title/Title';
 import './memberList.css';
 
-const MemberList = () => {
-  const ownerInfo = { id: 5, name: 'Petr Krátký', email: 'petr@seznam.cz' };
-
+const MemberList = ({ ownerInfo, isOwner, setIsOwner }) => {
   const existingMembers = [
     { id: 1, name: 'Michal Hladík', email: 'michal@seznam.cz' },
     { id: 2, name: 'Karel Kravčík', email: 'karel@seznam.cz' },
@@ -17,10 +14,9 @@ const MemberList = () => {
 
   const [otherMembers, setOtherMembers] = useState([]);
   const [selectedMember, setSelectedMember] = useState(null);
-  const [isOwnerRole, setIsOwnerRole] = useState(true);
 
   const handleAddMember = () => {
-    if (isOwnerRole && selectedMember) {
+    if (isOwner && selectedMember) {
       const isMemberAlreadyAdded = otherMembers.some(
         (member) => member.value.id === selectedMember.value.id
       );
@@ -32,7 +28,7 @@ const MemberList = () => {
   };
 
   const handleRemoveMember = (memberId) => {
-    if (isOwnerRole || memberId === ownerInfo.id) {
+    if (isOwner || memberId === ownerInfo.id) {
       const updatedMembers = otherMembers.filter((member) => member.value.id !== memberId);
       setOtherMembers(updatedMembers);
     }
@@ -49,10 +45,17 @@ const MemberList = () => {
     );
 
   const toggleRole = (memberId) => {
-    if (isOwnerRole && memberId !== ownerInfo.id) {
-      setIsOwnerRole(false);
+    if (isOwner && memberId !== ownerInfo.id) {
+      setIsOwner(false);
     } else {
-      setIsOwnerRole(true);
+      setIsOwner(true);
+    }
+  };
+
+  const deleteSelf = () => {
+    if (selectedMember) {
+      const updatedMembers = otherMembers.filter((member) => member.value.id !== selectedMember.value.id);
+      setOtherMembers(updatedMembers);
     }
   };
 
@@ -65,12 +68,15 @@ const MemberList = () => {
           {otherMembers.map((member, index) => (
             <li key={member.value.id}>
               <span
-                onClick={() => toggleRole(member.value.id)}
+                onClick={() => {
+                  toggleRole(member.value.id);
+                  setSelectedMember(member);
+                }}
                 style={{ cursor: 'pointer' }}
               >
                 {member.label}
               </span>
-              {isOwnerRole || member.value.id === ownerInfo.id ? (
+              {(isOwner || member.value.id === ownerInfo.id) ? (
                 <Button
                   onClick={() => handleRemoveMember(member.value.id)}
                   className="delete-button"
@@ -81,14 +87,23 @@ const MemberList = () => {
             </li>
           ))}
         </ul>
-        <Select
-          value={selectedMember}
-          onChange={setSelectedMember}
-          options={options}
-          placeholder="Vybrat člena"
-          isDisabled={!isOwnerRole}
-        />
-        {isOwnerRole ? (
+        {otherMembers.length > 0 && selectedMember && !isOwner ? (
+          otherMembers.some(member => member.value.id === selectedMember.value.id) ? (
+            <Button onClick={deleteSelf} className="delete-self-button">
+              Odejít
+            </Button>
+          ) : null
+        ) : null}
+        {isOwner ? (
+          <Select
+            value={selectedMember}
+            onChange={setSelectedMember}
+            options={options}
+            placeholder="Vybrat člena"
+            isDisabled={!isOwner}
+          />
+        ) : null}
+        {isOwner ? (
           <Button onClick={handleAddMember} className="toggle-button">
             + Přidat člena
           </Button>
@@ -99,7 +114,5 @@ const MemberList = () => {
 };
 
 export default MemberList;
-
-
 
 
