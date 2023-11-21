@@ -52,6 +52,12 @@
     margin-right: 5px;
   }
 
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
    /* Media query for smaller screens */
  @media screen and (max-width: 1024px) {
     .editable-title {

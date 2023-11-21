@@ -4,15 +4,22 @@ import Button from '../Button/Button';
 const AddItemForm = ({ addProduct }) => {
   const [text, setText] = useState('');
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   const handleInputChange = (e) => {
     setText(e.target.value);
+    setIsEmpty(e.target.value.trim() === '');
   };
 
   const handleSubmit = () => {
-    addProduct(text);
-    setText('');
-    setIsFormVisible(false);
+    if (text.trim() === '') {
+      setIsEmpty(true);
+    } else {
+      addProduct(text);
+      setText('');
+      setIsFormVisible(false);
+      setIsEmpty(false); 
+    }
   };
 
   return (
@@ -20,11 +27,12 @@ const AddItemForm = ({ addProduct }) => {
       {isFormVisible ? (
         <div>
           <input
-            className="add-item-input"
+            className={`add-item-input ${isEmpty ? 'error' : ''}`}
             type="text"
             value={text}
             onChange={handleInputChange}
           />
+          {isEmpty && <p className="error-message">Prosím napište název produktu</p>}
           <Button className="add-item-button" onClick={handleSubmit}>
             Přidat
           </Button>
