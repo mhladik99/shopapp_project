@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { shoppingLists, items, users } = require('../../data');
+const { checkOwnership } = require('../../authMiddleware');
+const { shoppingLists, users } = require('../../data');
 
 // Delete a member from an existing shopping list
-router.delete('/shopping-lists/:id/remove-member', (req, res) => {
+router.delete('/shopping-lists/:id/remove-member', checkOwnership, (req, res) => {
   const { id } = req.params;
   const { memberID } = req.body;
 

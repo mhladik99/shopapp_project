@@ -1,20 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const { shoppingLists, items } = require('../../data');
+const { checkOwnership } = require('../../authMiddleware');
+const { shoppingLists } = require('../../data');
 
-// Delete a specific shopping list by ID
-router.delete('/shopping-lists/:id', (req, res) => {
+// Use the checkOwnership middleware
+router.delete('/shopping-lists/:id', checkOwnership, (req, res) => {
   const { id } = req.params;
+
+  // At this point, you can access the shopping list data from req.shoppingList
   const index = shoppingLists.findIndex((list) => list.id === id);
-
-  if (index === -1) {
-    return res.status(404).json({ error: 'Shopping list not found' });
+  if (index !== -1) {
+    const deletedList = shoppingLists.splice(index, 1)[0];
+    res.json({ message: `Shopping list with id: ${id} has been deleted successfully.` });
+  } else {
+    res.status(404).json({ error: 'Shopping list not found' });
   }
-
-  // Remove the shopping list from the array
-  const deletedList = shoppingLists.splice(index, 1)[0];
-
-  res.json({ message: `Shopping list with id: ${id} has been deleted successfully.` });
 });
 
 module.exports = router;

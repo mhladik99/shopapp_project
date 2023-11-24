@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const { checkOwnership } = require('../../authMiddleware');
 const { shoppingLists, users } = require('../../data');
 
 // Add a member to an existing shopping list
-router.put('/shopping-lists/:id/add-member', (req, res) => {
+router.put('/shopping-lists/:id/add-member', checkOwnership, (req, res) => {
   const { id } = req.params;
   const { memberID } = req.body;
 
