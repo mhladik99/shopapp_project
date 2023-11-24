@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const { checkOwnership } = require('../../authMiddleware');
 const { shoppingLists } = require('../../data');
 
 // Update the archived property of a specific shopping list
-router.put('/shopping-lists/:listId/archive', (req, res) => {
+router.put('/shopping-lists/:listId/archive', checkOwnership, (req, res) => {
   const { listId } = req.params;
   const { archived } = req.body;
 

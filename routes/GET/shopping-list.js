@@ -3,9 +3,9 @@ const router = express.Router();
 const { shoppingLists, items, users } = require('../../data');
 
 // Get a specific shopping list by ID
-router.get('/shopping-lists/:id', (req, res) => {
-  const { id } = req.params;
-  const shoppingList = shoppingLists.find(list => list.id === id);
+router.get('/shopping-lists/:listId', (req, res) => {
+  const { listId } = req.params;
+  const shoppingList = shoppingLists.find(list => list.id === listId);
 
   if (!shoppingList) {
     return res.status(404).json({ error: 'Shopping list not found' });

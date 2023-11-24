@@ -4,12 +4,12 @@ const { checkOwnership } = require('../../authMiddleware');
 const { shoppingLists, users } = require('../../data');
 
 // Add a member to an existing shopping list
-router.put('/shopping-lists/:id/add-member', checkOwnership, (req, res) => {
-  const { id } = req.params;
+router.put('/shopping-lists/:listId/add-member', checkOwnership, (req, res) => {
+  const { listId } = req.params;
   const { memberID } = req.body;
 
   // Find the shopping list by ID
-  const shoppingList = shoppingLists.find(list => list.id === id);
+  const shoppingList = shoppingLists.find(list => list.id === listId);
 
   if (!shoppingList) {
     return res.status(404).json({ error: 'Shopping list not found' });

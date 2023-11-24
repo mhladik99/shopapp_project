@@ -1,8 +1,8 @@
 const { shoppingLists } = require('./data');
 
 function checkOwnership(req, res, next) {
-  const { id } = req.params;
-  const index = shoppingLists.findIndex((list) => list.id === id);
+  const { listId } = req.params;
+  const index = shoppingLists.findIndex((list) => list.id === listId);
 
   if (index === -1) {
     return res.status(404).json({ error: 'Shopping list not found' });

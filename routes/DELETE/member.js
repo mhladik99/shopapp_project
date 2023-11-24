@@ -4,12 +4,12 @@ const { checkOwnership } = require('../../authMiddleware');
 const { shoppingLists, users } = require('../../data');
 
 // Delete a member from an existing shopping list
-router.delete('/shopping-lists/:id/remove-member', checkOwnership, (req, res) => {
-  const { id } = req.params;
+router.delete('/shopping-lists/:listId/remove-member', checkOwnership, (req, res) => {
+  const { listId } = req.params;
   const { memberID } = req.body;
 
   // Find the shopping list by ID
-  const shoppingList = shoppingLists.find(list => list.id === id);
+  const shoppingList = shoppingLists.find(list => list.id === listId);
 
   if (!shoppingList) {
     return res.status(404).json({ error: 'Shopping list not found' });
