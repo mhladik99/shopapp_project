@@ -33,12 +33,29 @@ const Main = () => {
     setViewArchived((prevViewArchived) => !prevViewArchived);
   };
 
-  const handleCardArchive = (listId) => {
-    setShoppingLists((prevShoppingLists) =>
-      prevShoppingLists.map((list) =>
-        list.id === listId ? { ...list, archived: !list.archived } : list
-      )
-    );
+  const handleCardArchive = async (listId) => {
+    try {
+      const currentList = visibleShoppingLists.find((list) => list.id === listId);
+      const updatedList = { ...currentList, archived: !currentList.archived };
+
+      const response = await axios.put(
+        `http://localhost:3001/shoppingLists/${listId}`,
+        updatedList
+      );
+
+      if (!response.status === 200) {
+        throw new Error(`Failed to update shopping list: ${response.statusText}`);
+      }
+
+      // Update the state to reflect the change
+      setShoppingLists((prevShoppingLists) =>
+        prevShoppingLists.map((list) =>
+          list.id === listId ? updatedList : list
+        )
+      );
+    } catch (error) {
+      console.error('Error updating shopping list:', error.message);
+    }
   };
 
   const handleCardDelete = (listId) => {

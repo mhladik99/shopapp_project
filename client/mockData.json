@@ -61,16 +61,6 @@
           "completed": false
         }
       ]
-    },
-    {
-      "name": "f",
-      "members": [
-        1
-      ],
-      "archived": false,
-      "isOwner": true,
-      "items": [],
-      "id": 2
     }
   ]
 }
