@@ -1,24 +1,35 @@
-import React, { useState } from 'react';
-import './Main.css';
-
-import { Grid, Dialog, DialogTitle, DialogContent, DialogActions, Button as MaterialUIButton } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import {
+  Grid,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button as MaterialUIButton,
+} from '@material-ui/core';
 import ShoppingCard from '../components/shoppingCard/shoppingCard';
 import Button from '../components/Button/Button';
 import NewListModal from '../components/newListModal/newListModal';
 
 const Main = () => {
-  const [shoppingLists, setShoppingLists] = useState([
-    { name: 'Nákupní seznam #1', archived: false },
-    { name: 'Nákupní seznam #2', isOwner: true, archived: false },
-    { name: 'Nákupní seznam #3', isOwner: true, archived: false },
-    { name: 'Nákupní seznam #4', archived: false },
-    { name: 'Nákupní seznam #5', archived: false },
-    { name: 'Nákupní seznam #6', archived: false },
-  ]);
-
+  const [shoppingLists, setShoppingLists] = useState([]);
   const [viewArchived, setViewArchived] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/shoppingLists');
+        setShoppingLists(response.data);
+      } catch (error) {
+        console.error('Error fetching shopping lists:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleNewListClick = () => {
     setModalOpen(true);
@@ -54,7 +65,12 @@ const Main = () => {
   const handleCreateList = (newListData) => {
     setShoppingLists((prevShoppingLists) => [
       ...prevShoppingLists,
-      { name: newListData.listName, members: newListData.selectedMembers, archived: false, isOwner: true },
+      {
+        name: newListData.listName,
+        members: newListData.selectedMembers,
+        archived: false,
+        isOwner: true,
+      },
     ]);
     setModalOpen(false);
   };
@@ -66,10 +82,10 @@ const Main = () => {
   return (
     <div className='container'>
       <div className='button-container'>
-        <Button className="main-button" onClick={handleNewListClick}>
+        <Button className='main-button' onClick={handleNewListClick}>
           + Nový nákupní seznam
         </Button>
-        <Button className="main-button" onClick={handleArchiveClick}>
+        <Button className='main-button' onClick={handleArchiveClick}>
           {viewArchived ? 'Zobrazit všechny' : 'Archivované'}
         </Button>
       </div>
@@ -94,17 +110,21 @@ const Main = () => {
           Opravdu chcete tento nákupní seznam smazat?
         </DialogContent>
         <DialogActions>
-          <MaterialUIButton onClick={handleCancelDelete} color="primary">
+          <MaterialUIButton onClick={handleCancelDelete} color='primary'>
             Zrušit
           </MaterialUIButton>
-          <MaterialUIButton onClick={handleConfirmDelete} color="primary">
+          <MaterialUIButton onClick={handleConfirmDelete} color='primary'>
             Smazat
           </MaterialUIButton>
         </DialogActions>
       </Dialog>
 
       {/* NewListModal component */}
-      <NewListModal open={isModalOpen} onClose={() => setModalOpen(false)} onCreate={handleCreateList} />
+      <NewListModal
+        open={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        onCreate={handleCreateList}
+      />
     </div>
   );
 };
