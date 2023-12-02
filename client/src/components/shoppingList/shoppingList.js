@@ -76,14 +76,26 @@ const ShoppingList = () => {
     setProducts(updatedProducts);
   };
 
-  const addProduct = (productName) => {
-    const newProduct = {
-      id: products.length + 1,
-      name: productName,
-      completed: false,
-    };
-    setProducts([...products, newProduct]);
+  const addProduct = async (productName) => {
+    try {
+      const newProduct = {
+        id: 10,
+        name: productName,
+        completed: false,
+      };
+  
+      // Make a POST request to add the new product to the shopping list
+      const response = await axios.post(`http://localhost:3001/shoppingLists/${id}/products`, newProduct);
+  
+      // Find the correct shopping list in the response and update the state
+      const updatedShoppingList = response.data.shoppingLists.find(list => list.id === parseInt(id, 10));
+      setProducts(updatedShoppingList.products || []);
+    } catch (error) {
+      console.error('Error adding product:', error);
+      // Handle error, e.g., show an error message to the user
+    }
   };
+  
 
   return (
     <div className="container">
