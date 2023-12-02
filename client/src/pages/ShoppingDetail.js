@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import './shoppingDetail.css';
 
 import EditableTitle from '../components/editableTitle/editableTitle';
@@ -9,8 +11,26 @@ import MemberList from '../components/memberList/memberList';
 import BackButton from '../components/backButton/backButton';
 
 const ShoppingDetail = () => {
+  const { id } = useParams();
+  const [shoppingList, setShoppingList] = useState(null);
   const ownerInfo = { id: 5, name: 'Petr Krátký', email: 'petr@seznam.cz' };
   const [isOwner, setIsOwner] = useState(true);
+
+  useEffect(() => {
+    const fetchShoppingList = async () => {
+      try {
+        
+        const response = await axios.get(`http://localhost:3001/shoppingLists/${id}`);
+        setShoppingList(response.data);
+        
+      } catch (error) {
+        
+        console.error('Error fetching shopping list:', error);
+      }
+    };
+
+    fetchShoppingList();
+  }, [id]);
 
   const handleArchivovatClick = () => {
   };

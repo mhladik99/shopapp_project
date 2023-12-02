@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import './shoppingList.css';
 
 import AddItemForm from '../addItemForm/addItemForm';
@@ -45,13 +46,14 @@ const ShoppingListItem = ({ product, onToggleComplete, onDeleteProduct, showComp
 };
 
 const ShoppingList = () => {
+  const { id } = useParams();
   const [products, setProducts] = useState([]);
   const [showCompleted, setShowCompleted] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/shoppingLists/:id'); // Adjust the URL accordingly
+        const response = await axios.get(`http://localhost:3001/shoppingLists/${id}`);
         const shoppingListData = response.data;
         setProducts(shoppingListData.products || []);
       } catch (error) {

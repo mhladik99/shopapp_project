@@ -69,7 +69,13 @@
       ],
       "archived": false,
       "isOwner": true,
-      "products": [],
+      "products": [
+        {
+          "id": 4,
+          "name": "Petržel",
+          "completed": false
+        }
+      ],
       "id": 2
     }
   ]
