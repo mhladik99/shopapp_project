@@ -82,7 +82,13 @@
       "members": [],
       "archived": false,
       "isOwner": true,
-      "items": []
+      "products": [
+        {
+          "id": 5,
+          "name": "Petržel",
+          "completed": false
+        }
+      ]
     }
   ]
 }
