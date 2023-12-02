@@ -33,23 +33,40 @@ const Main = () => {
     setViewArchived((prevViewArchived) => !prevViewArchived);
   };
 
-  const handleCardArchive = (listName) => {
+  const handleCardArchive = (listId) => {
     setShoppingLists((prevShoppingLists) =>
       prevShoppingLists.map((list) =>
-        list.name === listName ? { ...list, archived: !list.archived } : list
+        list.id === listId ? { ...list, archived: !list.archived } : list
       )
     );
   };
 
-  const handleCardDelete = (listName) => {
-    setSelectedCard(listName);
+  const handleCardDelete = (listId) => {
+    setSelectedCard(listId);
   };
 
-  const handleConfirmDelete = () => {
-    setShoppingLists((prevShoppingLists) =>
-      prevShoppingLists.filter((list) => list.name !== selectedCard)
-    );
-    setSelectedCard(null);
+  const handleConfirmDelete = async () => {
+    try {
+      const response = await axios.delete(`http://localhost:3001/shoppingLists/${selectedCard}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.status === 200) {
+        throw new Error(`Failed to delete shopping list: ${response.statusText}`);
+      }
+
+      // Update shoppingLists state to reflect the deletion
+      setShoppingLists((prevShoppingLists) =>
+        prevShoppingLists.filter((list) => list.id !== selectedCard)
+      );
+
+      // Reset selectedCard state
+      setSelectedCard(null);
+    } catch (error) {
+      console.error('Error deleting shopping list:', error.message);
+    }
   };
 
   const handleCancelDelete = () => {
@@ -96,8 +113,8 @@ const Main = () => {
             name={list.name}
             isOwner={list.isOwner}
             isArchived={list.archived}
-            onDelete={() => handleCardDelete(list.name)}
-            onArchive={() => handleCardArchive(list.name)}
+            onDelete={() => handleCardDelete(list.id)}
+            onArchive={() => handleCardArchive(list.id)}
           />
         ))}
       </Grid>

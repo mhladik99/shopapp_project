@@ -63,7 +63,7 @@
       ]
     },
     {
-      "name": "c",
+      "name": "f",
       "members": [
         1
       ],
@@ -71,17 +71,6 @@
       "isOwner": true,
       "items": [],
       "id": 2
-    },
-    {
-      "name": "h",
-      "members": [
-        2,
-        3
-      ],
-      "archived": false,
-      "isOwner": true,
-      "items": [],
-      "id": 3
     }
   ]
 }
