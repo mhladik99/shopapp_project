@@ -1,0 +1,50 @@
+{
+    "memberList": [
+      { "id": 1,"name": "Michal Hladík", "email": "michal@seznam.cz" },
+      { "id": 2, "name": "Karel Kravčík", "email": "karel@seznam.cz" },
+      { "id": 3, "name": "Petra Novotná", "email": "petra@seznam.cz" },
+      { "id": 4, "name": "Tereza Rychlá", "email": "tereza@seznam.cz" }
+    ],
+  "shoppingLists": [
+    {
+      "id": 1,
+      "name": "Nákupní seznam #1",
+      "archived": false,
+      "isOwner": true,
+      "members": [
+        {
+          "id": 1,
+          "name": "Michal Hladík",
+          "email": "michal@seznam.cz"
+        },
+        {
+          "id": 2,
+          "name": "Karel Kravčík",
+          "email": "karel@seznam.cz"
+        }
+      ],
+      "items": [
+        {
+          "id": 1,
+          "name": "Banány",
+          "completed": false
+        },
+        {
+          "id": 2,
+          "name": "Mouka",
+          "completed": false
+        },
+        {
+          "id": 3,
+          "name": "Brambory",
+          "completed": false
+        },
+        {
+          "id": 4,
+          "name": "Petržel",
+          "completed": false
+        }
+      ]
+    }
+  ]
+}
