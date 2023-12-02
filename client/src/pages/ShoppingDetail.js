@@ -43,7 +43,14 @@ const ShoppingDetail = () => {
     <div className="shopping-detail-container">
       <div className="top-section">
       <BackButton />
-        <EditableTitle isOwner={isOwner} />
+      <EditableTitle
+          isOwner={isOwner}
+          title={shoppingList ? shoppingList.name : ''}
+          onTitleChange={(newTitle) => {
+            setShoppingList({ ...shoppingList, name: newTitle });
+          }}
+          shoppingListId={id}
+        />
       </div>
       <div className="left-section">
         <Title title="Položky" />

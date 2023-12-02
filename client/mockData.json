@@ -63,20 +63,26 @@
       ]
     },
     {
+      "id": 2,
       "name": "f",
-      "members": [
-        1
-      ],
+      "members": [1],
       "archived": false,
       "isOwner": true,
       "products": [
         {
-          "id": 4,
+          "id": 5,
           "name": "Petržel",
           "completed": false
         }
-      ],
-      "id": 2
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Nový",
+      "members": [],
+      "archived": false,
+      "isOwner": true,
+      "items": []
     }
   ]
 }

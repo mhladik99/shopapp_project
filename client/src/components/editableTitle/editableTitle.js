@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './editableTitle.css';
+import axios from 'axios';
 
 import { FaPencilAlt } from 'react-icons/fa';
 
-const EditableTitle = ({ isOwner }) => {
+const EditableTitle = ({ isOwner, title, onTitleChange, shoppingListId }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [title, setTitle] = useState("Název nákupního seznamu");
   const [error, setError] = useState('');
 
   const handleEditClick = () => {
@@ -15,15 +15,33 @@ const EditableTitle = ({ isOwner }) => {
   };
 
   const handleTitleChange = (e) => {
-    setTitle(e.target.value);
+    onTitleChange(e.target.value);
     setError('');
   };
-
-  const handleSaveClick = () => {
+  
+  const handleSaveClick = async () => {
     if (title.trim() === '') {
       setError('Prosím napište název seznamu');
       return;
     }
+  
+    try {
+      // Make a GET request to fetch the current shopping list
+      const response = await axios.get(`http://localhost:3001/shoppingLists/${shoppingListId}`);
+      const currentShoppingList = response.data;
+  
+      // Update only the name property
+      const updatedShoppingList = {
+        ...currentShoppingList,
+        name: title,
+      };
+  
+      // Make a PUT request to update the shopping list
+      await axios.put(`http://localhost:3001/shoppingLists/${shoppingListId}`, updatedShoppingList);
+    } catch (error) {
+      console.error('Error updating shopping list:', error);
+    }
+  
     setIsEditing(false);
   };
 
@@ -64,4 +82,3 @@ const EditableTitle = ({ isOwner }) => {
 };
 
 export default EditableTitle;
-
