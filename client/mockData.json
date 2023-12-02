@@ -39,7 +39,7 @@
           "email": "karel@seznam.cz"
         }
       ],
-      "items": [
+      "products": [
         {
           "id": 1,
           "name": "Banány",
@@ -61,6 +61,16 @@
           "completed": false
         }
       ]
+    },
+    {
+      "name": "f",
+      "members": [
+        1
+      ],
+      "archived": false,
+      "isOwner": true,
+      "products": [],
+      "id": 2
     }
   ]
 }

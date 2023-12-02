@@ -50,4 +50,3 @@ const ShoppingDetail = () => {
 };
 
 export default ShoppingDetail;
-

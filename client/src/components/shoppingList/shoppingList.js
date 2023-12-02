@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './shoppingList.css';
 
 import AddItemForm from '../addItemForm/addItemForm';
@@ -44,14 +45,22 @@ const ShoppingListItem = ({ product, onToggleComplete, onDeleteProduct, showComp
 };
 
 const ShoppingList = () => {
-  const [products, setProducts] = useState([
-    { id: 1, name: 'Banány', completed: false },
-    { id: 2, name: 'Mouka', completed: false },
-    { id: 3, name: 'Brambory', completed: false },
-    { id: 4, name: 'Petržel', completed: false },
-  ]);
-
+  const [products, setProducts] = useState([]);
   const [showCompleted, setShowCompleted] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/shoppingLists/:id'); // Adjust the URL accordingly
+        const shoppingListData = response.data;
+        setProducts(shoppingListData.products || []);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleToggleComplete = (productId) => {
     const updatedProducts = products.map((product) =>
