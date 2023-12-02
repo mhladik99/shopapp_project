@@ -127,6 +127,7 @@ const Main = () => {
         {visibleShoppingLists.map((list, index) => (
           <ShoppingCard
             key={index}
+            id={list.id}
             name={list.name}
             isOwner={list.isOwner}
             isArchived={list.archived}

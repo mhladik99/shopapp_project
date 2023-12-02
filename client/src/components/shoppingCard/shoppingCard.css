@@ -15,3 +15,13 @@
     top: 10px;
     right: 10px;
   }
+
+  .ShoppingCardLink {
+    text-decoration: none;
+    color: #000000;
+    transition: color 0.3s ease-in-out;
+  }
+
+  .ShoppingCardLink:hover {
+    color: #007BFF;
+  }
