@@ -1,10 +1,26 @@
 {
-    "memberList": [
-      { "id": 1,"name": "Michal Hladík", "email": "michal@seznam.cz" },
-      { "id": 2, "name": "Karel Kravčík", "email": "karel@seznam.cz" },
-      { "id": 3, "name": "Petra Novotná", "email": "petra@seznam.cz" },
-      { "id": 4, "name": "Tereza Rychlá", "email": "tereza@seznam.cz" }
-    ],
+  "memberList": [
+    {
+      "id": 1,
+      "name": "Michal Hladík",
+      "email": "michal@seznam.cz"
+    },
+    {
+      "id": 2,
+      "name": "Karel Kravčík",
+      "email": "karel@seznam.cz"
+    },
+    {
+      "id": 3,
+      "name": "Petra Novotná",
+      "email": "petra@seznam.cz"
+    },
+    {
+      "id": 4,
+      "name": "Tereza Rychlá",
+      "email": "tereza@seznam.cz"
+    }
+  ],
   "shoppingLists": [
     {
       "id": 1,
@@ -45,6 +61,27 @@
           "completed": false
         }
       ]
+    },
+    {
+      "name": "c",
+      "members": [
+        1
+      ],
+      "archived": false,
+      "isOwner": true,
+      "items": [],
+      "id": 2
+    },
+    {
+      "name": "h",
+      "members": [
+        2,
+        3
+      ],
+      "archived": false,
+      "isOwner": true,
+      "items": [],
+      "id": 3
     }
   ]
 }

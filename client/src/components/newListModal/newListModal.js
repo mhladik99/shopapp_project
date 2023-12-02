@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import {
   Dialog,
@@ -28,13 +29,20 @@ const NewListModal = ({ open, onClose, onCreate }) => {
   };
 
   const [formState, setFormState] = useState({ ...initialFormState });
+  const [memberList, setMemberList] = useState([]);
 
-  const existingMembers = [
-    { id: 1, name: 'Michal Hladík', email: 'michal@seznam.cz' },
-    { id: 2, name: 'Karel Kravčík', email: 'karel@seznam.cz' },
-    { id: 3, name: 'Petra Novotná', email: 'petra@seznam.cz' },
-    { id: 4, name: 'Tereza Rychlá', email: 'tereza@seznam.cz' },
-  ];
+  useEffect(() => {
+    const fetchMemberList = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/memberList');
+        setMemberList(response.data);
+      } catch (error) {
+        console.error('Error fetching member list:', error);
+      }
+    };
+
+    fetchMemberList();
+  }, []);
 
   const handleCreate = () => {
     if (!formState.listName.trim()) {
@@ -56,7 +64,7 @@ const NewListModal = ({ open, onClose, onCreate }) => {
     const newList = {
       listName: formState.listName,
       addedProducts: formState.addedProducts,
-      selectedMembers: formState.selectedMembers.map((member) => member.value),
+      selectedMembers: formState.selectedMembers?.map((member) => member.value),
     };
     onCreate(newList);
     onClose();
@@ -162,7 +170,7 @@ const NewListModal = ({ open, onClose, onCreate }) => {
           ))}
         </List>
         <Select
-          options={existingMembers.map((member) => ({
+          options={memberList?.map((member) => ({
             value: member.id,
             label: member.name,
           }))}
