@@ -24,8 +24,8 @@
   "shoppingLists": [
     {
       "id": 1,
-      "name": "Nákupní seznam #3",
-      "archived": false,
+      "name": "Nákupní seznam #4",
+      "archived": true,
       "isOwner": true,
       "members": [
         {
@@ -46,7 +46,7 @@
       "members": [
         1
       ],
-      "archived": false,
+      "archived": true,
       "isOwner": true,
       "products": []
     },
@@ -62,7 +62,7 @@
     {
       "id": 2,
       "name": "New Product",
-      "completed": false,
+      "completed": true,
       "shoppingListId": "1"
     }
   ]

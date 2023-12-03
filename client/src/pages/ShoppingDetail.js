@@ -36,7 +36,6 @@ const ShoppingDetail = () => {
     try {
       const newArchivedState = !shoppingList.archived;
   
-      // Make a PATCH request to update only the 'archived' property
       await axios.patch(`http://localhost:3001/shoppingLists/${id}`, {
         archived: newArchivedState,
       });

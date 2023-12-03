@@ -68,24 +68,20 @@ const ShoppingList = () => {
 
   const handleToggleComplete = async (productId) => {
     try {
-      // Find the product in the current state
       const productToUpdate = products.find((product) => product.id === productId);
   
-      // Make a PUT request to update the completion status of the product
-      const response = await axios.put(
+      const response = await axios.patch(
         `http://localhost:3001/shoppingLists/${id}/products/${productId}`,
-        {
-          ...productToUpdate,
-          completed: !productToUpdate.completed,
-        }
+        { completed: !productToUpdate.completed }
       );
   
-      // Update the state with the updated product
-      setProducts((prevProducts) =>
-        prevProducts.map((product) =>
-          product.id === productId ? { ...product, completed: !product.completed } : product
-        )
-      );
+      if (response.status === 200) {
+        setProducts((prevProducts) =>
+          prevProducts.map((product) =>
+            product.id === productId ? { ...product, completed: !product.completed } : product
+          )
+        );
+      }
     } catch (error) {
       console.error('Error updating completion status:', error);
       // Handle error, e.g., show an error message to the user

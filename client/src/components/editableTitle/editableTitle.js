@@ -26,18 +26,10 @@ const EditableTitle = ({ isOwner, title, onTitleChange, shoppingListId }) => {
     }
   
     try {
-      // Make a GET request to fetch the current shopping list
-      const response = await axios.get(`http://localhost:3001/shoppingLists/${shoppingListId}`);
-      const currentShoppingList = response.data;
-  
-      // Update only the name property
-      const updatedShoppingList = {
-        ...currentShoppingList,
+      // Make a PATCH request to update only the 'name' property
+      await axios.patch(`http://localhost:3001/shoppingLists/${shoppingListId}`, {
         name: title,
-      };
-  
-      // Make a PUT request to update the shopping list
-      await axios.put(`http://localhost:3001/shoppingLists/${shoppingListId}`, updatedShoppingList);
+      });
     } catch (error) {
       console.error('Error updating shopping list:', error);
     }
