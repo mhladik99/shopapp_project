@@ -28,22 +28,23 @@ const ShoppingDetail = () => {
       try {
         // Fetch shopping list details using Axios
         const shoppingListResponse = await axios.get(`http://localhost:3001/shoppingLists/${id}`);
-        const fetchedShoppingList = shoppingListResponse.data.shoppingLists.find(list => list.id === parseInt(id));
-        setShoppingList(fetchedShoppingList);
-
+        const fetchedShoppingList = shoppingListResponse.data;
+  
         // Fetch owner info from the specified endpoint
         const ownerInfoResponse = await axios.get(`http://localhost:3001/shoppingLists/${id}/owners`);
-        const fetchedOwner = ownerInfoResponse.data[0]; // Assuming there's only one owner
+        const fetchedOwner = ownerInfoResponse.data[0];
+  
+        // Update state with fetched data
+        setShoppingList(fetchedShoppingList);
         setOwnerInfo({
           id: fetchedOwner.id,
           name: fetchedOwner.name,
-          // Add other properties from your ownerInfo if needed
         });
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
+  
     fetchData();
   }, [id]);
 
@@ -117,14 +118,17 @@ const ShoppingDetail = () => {
         </div>
         <BackButton />
         <EditableTitle
-          isOwner={isOwner}
-          title={shoppingList ? shoppingList.name : ''}
-          onTitleChange={(newTitle) => {
-            setShoppingList({ ...shoppingList, name: newTitle });
-          }}
-          shoppingListId={id}
-          onClick={handleOwnerTitleClick}
-        />
+  isOwner={isOwner}
+  title={shoppingList ? shoppingList.name : ''}
+  onTitleChange={(newTitle) => {
+    setShoppingList((prevShoppingList) => ({
+      ...prevShoppingList,
+      name: newTitle,
+    }));
+  }}
+  shoppingListId={id}
+  onClick={handleOwnerTitleClick}
+/>
       </div>
       <div className="left-section">
         <Title title="Položky" />

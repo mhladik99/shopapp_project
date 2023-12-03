@@ -48,7 +48,7 @@
   "shoppingLists": [
     {
       "id": 1,
-      "name": "Nákupní seznam #4",
+      "name": "Nový",
       "archived": true,
       "isOwner": true
     },
