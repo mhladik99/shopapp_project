@@ -48,19 +48,19 @@
   "shoppingLists": [
     {
       "id": 1,
-      "name": "Nový",
+      "name": "Kaufland",
       "archived": true,
       "isOwner": true
     },
     {
       "id": 2,
-      "name": "f",
+      "name": "Lidl",
       "archived": true,
       "isOwner": true
     },
     {
       "id": 3,
-      "name": "Nový",
+      "name": "Albert",
       "archived": false,
       "isOwner": true
     }
@@ -77,6 +77,72 @@
       "name": "Máslo",
       "completed": false,
       "shoppingListId": "1"
+    },
+    {
+      "name": "Mléko",
+      "completed": false,
+      "shoppingListId": "1",
+      "id": 3
+    },
+    {
+      "name": "Jablko",
+      "completed": false,
+      "shoppingListId": "1",
+      "id": 4
+    },
+    {
+      "name": "Šunka",
+      "completed": false,
+      "shoppingListId": "1",
+      "id": 5
+    },
+    {
+      "name": "Sýr",
+      "completed": false,
+      "shoppingListId": "2",
+      "id": 6
+    },
+    {
+      "name": "Hermelín",
+      "completed": false,
+      "shoppingListId": "2",
+      "id": 7
+    },
+    {
+      "name": "Džus",
+      "completed": false,
+      "shoppingListId": "2",
+      "id": 8
+    },
+    {
+      "name": "Cola",
+      "completed": false,
+      "shoppingListId": "2",
+      "id": 9
+    },
+    {
+      "name": "Chleba",
+      "completed": false,
+      "shoppingListId": "3",
+      "id": 10
+    },
+    {
+      "name": "Rohlíky",
+      "completed": false,
+      "shoppingListId": "3",
+      "id": 11
+    },
+    {
+      "name": "Mouka",
+      "completed": false,
+      "shoppingListId": "3",
+      "id": 12
+    },
+    {
+      "name": "Víno",
+      "completed": false,
+      "shoppingListId": "3",
+      "id": 13
     }
   ]
 }
