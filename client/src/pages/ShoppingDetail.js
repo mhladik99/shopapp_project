@@ -32,7 +32,23 @@ const ShoppingDetail = () => {
     fetchShoppingList();
   }, [id]);
 
-  const handleArchivovatClick = () => {
+  const handleArchivovatClick = async () => {
+    try {
+      const newArchivedState = !shoppingList.archived;
+  
+      // Make a PATCH request to update only the 'archived' property
+      await axios.patch(`http://localhost:3001/shoppingLists/${id}`, {
+        archived: newArchivedState,
+      });
+  
+      // Update the local state to reflect the change
+      setShoppingList((prevShoppingList) => ({
+        ...prevShoppingList,
+        archived: newArchivedState,
+      }));
+    } catch (error) {
+      console.error('Error updating shopping list:', error);
+    }
   };
 
   const handleSmazatClick = () => {
@@ -63,8 +79,9 @@ const ShoppingDetail = () => {
       <div className="bottom-section">
         {isOwner && (
           <div className='button-container'>
-            <Button className="main-button" onClick={handleArchivovatClick}>
-              Archivovat
+            <Button className={`main-button ${shoppingList && shoppingList.archived ? 'archived' : ''}`}
+              onClick={handleArchivovatClick} >
+              {shoppingList && shoppingList.archived ? 'Odarchivovat' : 'Archivovat'}
             </Button>
             <Button className="main-button" onClick={handleSmazatClick}>
               Smazat
