@@ -28,15 +28,24 @@ const MemberList = ({ isOwner, setIsOwner, onMemberSelect }) => {
         const ownerData = ownerResponse.data[0]; // Assuming there is only one owner
         setOwnerInfo(ownerData);
 
-        // Fetch all members
+        // Filter out members that are already part of the shopping list
         const allMembersResponse = await axios.get('http://localhost:3001/members');
         const allMembersData = allMembersResponse.data;
-
+        
+        const uniqueEmails = new Set();
+        const filteredMembersData = allMembersData.filter((member) => {
+          if (!uniqueEmails.has(member.email)) {
+            uniqueEmails.add(member.email);
+            return true;
+          }
+          return false;
+        });
+        
         // Filter out members that are already part of the shopping list
-        const filteredMembers = allMembersData.filter(
-          (member) => !shoppingListMembersData.some((listMember) => listMember.id === member.id)
+        const filteredMembers = filteredMembersData.filter(
+          (member) => !shoppingListMembersData.some((listMember) => listMember.email === member.email)
         );
-
+        
         setOtherMembers(filteredMembers.map((member) => ({ label: member.name, value: member })));
       } catch (error) {
         console.error('Error fetching members:', error);
@@ -46,16 +55,40 @@ const MemberList = ({ isOwner, setIsOwner, onMemberSelect }) => {
     fetchMembers();
   }, [id]);
 
-  const handleAddMember = () => {
+  const handleAddMember = async () => {
     if (isOwner && selectedMember) {
-      // Add the selected member to the shopping list
-      setShoppingListMembers([...shoppingListMembers, selectedMember.value]);
-
-      // Remove the selected member from the list of other members
-      setOtherMembers(otherMembers.filter((member) => member.value.id !== selectedMember.value.id));
-
-      // Notify the parent component about the selected member
-      onMemberSelect(selectedMember.value);
+      try {
+        const { name, email } = selectedMember.value;
+  
+        // Make a POST request to add the selected member to the shopping list
+        const response = await axios.post(`http://localhost:3001/shoppingLists/${id}/members`, {
+          name,
+          email,
+        });
+  
+        // Handle the response accordingly
+        if (response.status === 200 || response.status === 201) {
+          const addedMember = response.data;
+  
+          // Update the state with the actual response data
+          setShoppingListMembers((prevMembers) => [...prevMembers, addedMember]);
+  
+          // Remove the selected member from the list of other members based on email
+          setOtherMembers((prevOtherMembers) =>
+            prevOtherMembers.filter((member) => member.value.email !== addedMember.email)
+          );
+  
+          // Notify the parent component about the selected member
+          onMemberSelect(addedMember);
+  
+          // Clear the selected member after successful addition
+          setSelectedMember(null);
+        } else {
+          console.error('Failed to add member to the shopping list. Status:', response.status);
+        }
+      } catch (error) {
+        console.error('Error adding member:', error.message);
+      }
     }
   };
 
