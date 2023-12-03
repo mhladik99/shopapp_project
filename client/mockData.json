@@ -24,7 +24,7 @@
   "shoppingLists": [
     {
       "id": 1,
-      "name": "Nákupní seznam #1",
+      "name": "Nákupní seznam #3",
       "archived": false,
       "isOwner": true,
       "members": [
@@ -38,57 +38,32 @@
           "name": "Karel Kravčík",
           "email": "karel@seznam.cz"
         }
-      ],
-      "products": [
-        {
-          "id": 1,
-          "name": "Banány",
-          "completed": false
-        },
-        {
-          "id": 2,
-          "name": "Mouka",
-          "completed": false
-        },
-        {
-          "id": 3,
-          "name": "Brambory",
-          "completed": false
-        },
-        {
-          "id": 4,
-          "name": "Petržel",
-          "completed": false
-        }
       ]
     },
     {
       "id": 2,
       "name": "f",
-      "members": [1],
+      "members": [
+        1
+      ],
       "archived": false,
       "isOwner": true,
-      "products": [
-        {
-          "id": 5,
-          "name": "Petržel",
-          "completed": false
-        }
-      ]
+      "products": []
     },
     {
       "id": 3,
       "name": "Nový",
       "members": [],
       "archived": false,
-      "isOwner": true,
-      "products": [
-        {
-          "id": 5,
-          "name": "Petržel",
-          "completed": false
-        }
-      ]
+      "isOwner": true
+    }
+  ],
+  "products": [
+    {
+      "id": 2,
+      "name": "New Product",
+      "completed": false,
+      "shoppingListId": "1"
     }
   ]
 }

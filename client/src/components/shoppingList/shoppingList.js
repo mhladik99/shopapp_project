@@ -50,30 +50,59 @@ const ShoppingList = () => {
   const [products, setProducts] = useState([]);
   const [showCompleted, setShowCompleted] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3001/shoppingLists/${id}`);
-        const shoppingListData = response.data;
-        setProducts(shoppingListData.products || []);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3001/shoppingLists/${id}/products`);
+      const productsData = response.data || [];
 
-    fetchData();
-  }, []);
-
-  const handleToggleComplete = (productId) => {
-    const updatedProducts = products.map((product) =>
-      product.id === productId ? { ...product, completed: !product.completed } : product
-    );
-    setProducts(updatedProducts);
+      // Update the state with the products
+      setProducts(productsData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
-  const handleDeleteProduct = (productId) => {
-    const updatedProducts = products.filter((product) => product.id !== productId);
-    setProducts(updatedProducts);
+  useEffect(() => {
+    fetchData();
+  }, [id]);
+
+  const handleToggleComplete = async (productId) => {
+    try {
+      // Find the product in the current state
+      const productToUpdate = products.find((product) => product.id === productId);
+  
+      // Make a PUT request to update the completion status of the product
+      const response = await axios.put(
+        `http://localhost:3001/shoppingLists/${id}/products/${productId}`,
+        {
+          ...productToUpdate,
+          completed: !productToUpdate.completed,
+        }
+      );
+  
+      // Update the state with the updated product
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product.id === productId ? { ...product, completed: !product.completed } : product
+        )
+      );
+    } catch (error) {
+      console.error('Error updating completion status:', error);
+      // Handle error, e.g., show an error message to the user
+    }
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    try {
+      // Make a DELETE request to remove the product from the shopping list
+      await axios.delete(`http://localhost:3001/shoppingLists/${id}/products/${productId}`);
+  
+      // Update the state by removing the deleted product
+      setProducts((prevProducts) => prevProducts.filter((product) => product.id !== productId));
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      // Handle error, e.g., show an error message to the user
+    }
   };
 
   const addProduct = async (productName) => {
@@ -84,13 +113,17 @@ const ShoppingList = () => {
       };
   
       // Make a POST request to add the new product to the shopping list
-      const response = await axios.post(`http://localhost:3001/shoppingLists/${id}`, newProduct);
+      const response = await axios.post(`http://localhost:3001/shoppingLists/${id}/products`, newProduct);
   
-      // Check if the response contains the updated products directly
-      const updatedProducts = response.data.products || [];
+      // Check if the response contains the updated product directly
+      const addedProduct = response.data || null;
   
-      // Update the state with the updated products
-      setProducts(updatedProducts);
+      if (addedProduct) {
+        // Update the state with the existing products and the newly added one
+        setProducts((prevProducts) => [...prevProducts, addedProduct]);
+      } else {
+        console.error('Invalid response when adding product:', response);
+      }
     } catch (error) {
       console.error('Error adding product:', error);
       // Handle error, e.g., show an error message to the user
