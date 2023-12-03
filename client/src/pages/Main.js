@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Grid, Dialog, DialogTitle, DialogContent, DialogActions, Button as MaterialUIButton } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import ShoppingCard from '../components/shoppingCard/shoppingCard';
 import Button from '../components/Button/Button';
 import NewListModal from '../components/newListModal/newListModal';
+import ConfirmationDialog from '../components/confirmationDialog/confirmationDialog';
 
 const Main = () => {
   const [shoppingLists, setShoppingLists] = useState([]);
   const [viewArchived, setViewArchived] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
 
   useEffect(() => {
     // Fetch shopping lists from the server using Axios
@@ -60,6 +62,7 @@ const Main = () => {
 
   const handleCardDelete = (listId) => {
     setSelectedCard(listId);
+    setConfirmationDialogOpen(true);
   };
 
   const handleConfirmDelete = async () => {
@@ -74,20 +77,21 @@ const Main = () => {
         throw new Error(`Failed to delete shopping list: ${response.statusText}`);
       }
 
-      // Update shoppingLists state to reflect the deletion
       setShoppingLists((prevShoppingLists) =>
         prevShoppingLists.filter((list) => list.id !== selectedCard)
       );
 
-      // Reset selectedCard state
       setSelectedCard(null);
     } catch (error) {
       console.error('Error deleting shopping list:', error.message);
+    } finally {
+      setConfirmationDialogOpen(false);
     }
   };
 
   const handleCancelDelete = () => {
     setSelectedCard(null);
+    setConfirmationDialogOpen(false);
   };
 
   const handleCreateList = async (newListData) => {
@@ -138,20 +142,12 @@ const Main = () => {
       </Grid>
 
       {/* Confirmation Dialog for Delete */}
-      <Dialog open={!!selectedCard} onClose={handleCancelDelete}>
-        <DialogTitle>Potvrzení smazání</DialogTitle>
-        <DialogContent>
-          Opravdu chcete tento nákupní seznam smazat?
-        </DialogContent>
-        <DialogActions>
-          <MaterialUIButton onClick={handleCancelDelete} color="primary">
-            Zrušit
-          </MaterialUIButton>
-          <MaterialUIButton onClick={handleConfirmDelete} color="primary">
-            Smazat
-          </MaterialUIButton>
-        </DialogActions>
-      </Dialog>
+      <ConfirmationDialog
+        open={isConfirmationDialogOpen}
+        onClose={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+        message="Opravdu chcete tento nákupní seznam smazat?"
+      />
 
       {/* NewListModal component */}
       <NewListModal open={isModalOpen} onClose={() => setModalOpen(false)} onCreate={handleCreateList} />
