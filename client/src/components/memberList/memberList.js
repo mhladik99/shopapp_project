@@ -92,20 +92,19 @@ const MemberList = ({ isOwner, setIsOwner, onMemberSelect }) => {
     }
   };
 
-  const handleRemoveMember = (memberId) => {
-    if (isOwner || memberId === ownerInfo.id) {
-      // Remove the member from the shopping list
-      setShoppingListMembers(shoppingListMembers.filter((member) => member.id !== memberId));
-
-      // Add the member back to the list of other members
-      const removedMember = shoppingListMembers.find((member) => member.id === memberId);
-      setOtherMembers([...otherMembers, { label: removedMember.name, value: removedMember }]);
-
-      // Notify the parent component about the removed member
-      onMemberSelect(null);
+  const handleRemoveMember = async (memberId) => {
+    try {
+      // Make a DELETE request to remove the product from the shopping list
+      await axios.delete(`http://localhost:3001/shoppingLists/${id}/members/${memberId}`);
+  
+      // Update the state by removing the deleted product
+      setShoppingListMembers((prevMembers) => prevMembers.filter((member) => member.id !== memberId));
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      // Handle error, e.g., show an error message to the user
     }
   };
-
+  
   const toggleRole = (memberId) => {
     if (isOwner && memberId !== ownerInfo.id) {
       setIsOwner(false);

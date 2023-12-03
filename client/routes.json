@@ -1,3 +1,4 @@
 {
-    "/shoppingLists/:shoppingListId/products/:id": "/products/:id"
-  }
+  "/shoppingLists/:shoppingListId/products/:id": "/products/:id",
+  "/shoppingLists/:shoppingListId/members/:id": "/members/:id"
+}
