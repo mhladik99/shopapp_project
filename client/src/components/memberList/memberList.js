@@ -12,7 +12,7 @@ const MemberList = ({ isOwner, setIsOwner, onMemberSelect }) => {
   const [shoppingListMembers, setShoppingListMembers] = useState([]);
   const [otherMembers, setOtherMembers] = useState([]);
   const [selectedMember, setSelectedMember] = useState(null);
-  const [ownerInfo, setOwnerInfo] = useState({}); // New state for owner info
+  const [ownerInfo, setOwnerInfo] = useState({});
 
   useEffect(() => {
     const fetchMembers = async () => {
@@ -105,31 +105,24 @@ const MemberList = ({ isOwner, setIsOwner, onMemberSelect }) => {
     }
   };
   
-  const toggleRole = (memberId) => {
-    if (isOwner && memberId !== ownerInfo.id) {
+  const toggleRole = (memberEmail) => {
+    if (isOwner && memberEmail !== ownerInfo.email) {
       setIsOwner(false);
     } else {
       setIsOwner(true);
     }
   };
 
-  const deleteSelf = () => {
-    if (selectedMember) {
-      const updatedMembers = otherMembers.filter((member) => member.value.id !== selectedMember.value.id);
-      setOtherMembers(updatedMembers);
-    }
-  };
-
   return (
     <div>
-      <h3 onClick={() => toggleRole(ownerInfo.id)}>{ownerInfo.name}</h3>
+      <h3 onClick={() => toggleRole(ownerInfo.email)}>{ownerInfo.name}</h3>
       <Title title="Členové" />
       <div className="container">
         <ul>
           {shoppingListMembers.map((member) => (
-            <li key={member.id}>
+            <li key={member.email}>
               {member.name}
-              {(isOwner || member.id === ownerInfo.id) ? (
+              {(isOwner || member.email === "michal@seznam.cz") ? (
                 <Button onClick={() => handleRemoveMember(member.id)} className="delete-button">
                   - Odebrat
                 </Button>
@@ -150,13 +143,6 @@ const MemberList = ({ isOwner, setIsOwner, onMemberSelect }) => {
               + Přidat člena
             </Button>
           </div>
-        ) : null}
-        {otherMembers.length > 0 && selectedMember && !isOwner ? (
-          otherMembers.some((member) => member.value.id === selectedMember.value.id) ? (
-            <Button onClick={deleteSelf} className="delete-self-button">
-              Odejít
-            </Button>
-          ) : null
         ) : null}
       </div>
     </div>
