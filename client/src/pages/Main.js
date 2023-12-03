@@ -5,6 +5,8 @@ import ShoppingCard from '../components/shoppingCard/shoppingCard';
 import Button from '../components/Button/Button';
 import NewListModal from '../components/newListModal/newListModal';
 import ConfirmationDialog from '../components/confirmationDialog/confirmationDialog';
+import NotificationBar from '../components/notificationBar/notificationBar';
+import { useNotification } from '../NotificationContext.js'
 
 const Main = () => {
   const [shoppingLists, setShoppingLists] = useState([]);
@@ -12,6 +14,7 @@ const Main = () => {
   const [selectedCard, setSelectedCard] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
+  const { showNotification } = useNotification();
 
   useEffect(() => {
     // Fetch shopping lists from the server using Axios
@@ -39,16 +42,16 @@ const Main = () => {
     try {
       const currentList = visibleShoppingLists.find((list) => list.id === listId);
       const updatedList = { archived: !currentList.archived };
-  
+
       const response = await axios.patch(
         `http://localhost:3001/shoppingLists/${listId}`,
         updatedList
       );
-  
+
       if (response.status !== 200) {
         throw new Error(`Failed to update shopping list: ${response.statusText}`);
       }
-  
+
       // Update the state to reflect the change
       setShoppingLists((prevShoppingLists) =>
         prevShoppingLists.map((list) =>
@@ -72,15 +75,18 @@ const Main = () => {
           'Content-Type': 'application/json',
         },
       });
-
+  
       if (!response.status === 200) {
         throw new Error(`Failed to delete shopping list: ${response.statusText}`);
       }
-
+  
+      // Use the showNotification function from the context to display the notification
+      showNotification('Nákupní seznam byl smazán.');
+  
       setShoppingLists((prevShoppingLists) =>
         prevShoppingLists.filter((list) => list.id !== selectedCard)
       );
-
+  
       setSelectedCard(null);
     } catch (error) {
       console.error('Error deleting shopping list:', error.message);
@@ -140,6 +146,9 @@ const Main = () => {
           />
         ))}
       </Grid>
+
+      {/* Display NotificationBar */}
+      <NotificationBar />
 
       {/* Confirmation Dialog for Delete */}
       <ConfirmationDialog
