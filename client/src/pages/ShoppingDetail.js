@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useNotification } from '../NotificationContext.js'
+import { useNotification } from '../NotificationContext.js';
 import './shoppingDetail.css';
 
 import EditableTitle from '../components/editableTitle/editableTitle';
@@ -18,42 +18,67 @@ const ShoppingDetail = () => {
   const navigate = useNavigate();
   const { showNotification } = useNotification();
   const [shoppingList, setShoppingList] = useState(null);
-  const ownerInfo = { id: 5, name: 'Petr Krátký', email: 'petr@seznam.cz' };
+  const [ownerInfo, setOwnerInfo] = useState(null);
   const [isOwner, setIsOwner] = useState(true);
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [selectedMember, setSelectedMember] = useState(null);
 
   useEffect(() => {
-    const fetchShoppingList = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/shoppingLists/${id}`);
-        setShoppingList(response.data);
+        // Fetch shopping list details using Axios
+        const shoppingListResponse = await axios.get(`http://localhost:3001/shoppingLists/${id}`);
+        const fetchedShoppingList = shoppingListResponse.data.shoppingLists.find(list => list.id === parseInt(id));
+        setShoppingList(fetchedShoppingList);
+
+        // Fetch owner info from the specified endpoint
+        const ownerInfoResponse = await axios.get(`http://localhost:3001/shoppingLists/${id}/owners`);
+        const fetchedOwner = ownerInfoResponse.data[0]; // Assuming there's only one owner
+        setOwnerInfo({
+          id: fetchedOwner.id,
+          name: fetchedOwner.name,
+          // Add other properties from your ownerInfo if needed
+        });
       } catch (error) {
-        console.error('Error fetching shopping list:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
-    fetchShoppingList();
+    fetchData();
   }, [id]);
 
+  const handleOwnerTitleClick = () => {
+    if (!selectedMember) {
+    }
+  };
+
+  const handleMemberNameClick = (isOwnerClick) => {
+    setIsOwner(isOwnerClick);
+  };
+
   const handleArchivovatClick = async () => {
-    try {
-      const newArchivedState = !shoppingList.archived;
+    if (!selectedMember) {
+      try {
+        const newArchivedState = !shoppingList.archived;
 
-      await axios.patch(`http://localhost:3001/shoppingLists/${id}`, {
-        archived: newArchivedState,
-      });
+        await axios.patch(`http://localhost:3001/shoppingLists/${id}`, {
+          archived: newArchivedState,
+        });
 
-      setShoppingList((prevShoppingList) => ({
-        ...prevShoppingList,
-        archived: newArchivedState,
-      }));
-    } catch (error) {
-      console.error('Error updating shopping list:', error);
+        setShoppingList((prevShoppingList) => ({
+          ...prevShoppingList,
+          archived: newArchivedState,
+        }));
+      } catch (error) {
+        console.error('Error updating shopping list:', error);
+      }
     }
   };
 
   const handleSmazatClick = () => {
-    setDeleteDialogOpen(true);
+    if (!selectedMember) {
+      setDeleteDialogOpen(true);
+    }
   };
 
   const handleConfirmDelete = async () => {
@@ -63,9 +88,7 @@ const ShoppingDetail = () => {
 
       showNotification('Nákupní seznam byl smazán.');
 
-      setTimeout(() => {
-        navigate('/', { state: { notification: 'Nákupní seznam byl smazán.' } });
-      });
+      navigate('/', { state: { notification: 'Nákupní seznam byl smazán.' } });
     } catch (error) {
       console.error('Error deleting shopping list:', error);
     } finally {
@@ -77,9 +100,21 @@ const ShoppingDetail = () => {
     setDeleteDialogOpen(false);
   };
 
+  const handleMemberSelect = (member) => {
+    setSelectedMember(member);
+  };
+
   return (
     <div className="shopping-detail-container">
       <div className="top-section">
+        <div className="member-names">
+          <span className="owner-name" onClick={() => handleMemberNameClick(true)}>
+            Petr Krátký
+          </span>
+          <span className="member-name" onClick={() => handleMemberNameClick(false)}>
+            Michal Hladík
+          </span>
+        </div>
         <BackButton />
         <EditableTitle
           isOwner={isOwner}
@@ -88,6 +123,7 @@ const ShoppingDetail = () => {
             setShoppingList({ ...shoppingList, name: newTitle });
           }}
           shoppingListId={id}
+          onClick={handleOwnerTitleClick}
         />
       </div>
       <div className="left-section">
@@ -96,7 +132,7 @@ const ShoppingDetail = () => {
       </div>
       <div className="right-section">
         <Title title="Vlastník" />
-        <MemberList ownerInfo={ownerInfo} isOwner={isOwner} setIsOwner={setIsOwner} />
+        <MemberList ownerInfo={ownerInfo} isOwner={isOwner} setIsOwner={setIsOwner} onMemberSelect={handleMemberSelect} />
       </div>
       <div className="bottom-section">
         {isOwner && (
@@ -116,7 +152,6 @@ const ShoppingDetail = () => {
 
       <NotificationBar />
 
-      {/* Confirmation Dialog for Delete */}
       <ConfirmationDialog
         open={isDeleteDialogOpen}
         onClose={handleCancelDelete}

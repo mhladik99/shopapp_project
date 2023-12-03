@@ -1,24 +1,48 @@
 {
-  "memberList": [
+  "owners": [
+    {
+      "id": 1,
+      "name": "Petr Krátký",
+      "email": "petr@seznam.cz",
+      "shoppingListId": "1"
+    },
+    {
+      "id": 1,
+      "name": "Petr Krátký",
+      "email": "petr@seznam.cz",
+      "shoppingListId": "2"
+    },
+    {
+      "id": 1,
+      "name": "Petr Krátký",
+      "email": "petr@seznam.cz",
+      "shoppingListId": "3"
+    }
+  ],
+  "members": [
     {
       "id": 1,
       "name": "Michal Hladík",
-      "email": "michal@seznam.cz"
+      "email": "michal@seznam.cz",
+      "shoppingListId": "1"
     },
     {
       "id": 2,
       "name": "Karel Kravčík",
-      "email": "karel@seznam.cz"
+      "email": "karel@seznam.cz",
+      "shoppingListId": "1"
     },
     {
       "id": 3,
       "name": "Petra Novotná",
-      "email": "petra@seznam.cz"
+      "email": "petra@seznam.cz",
+      "shoppingListId": "1"
     },
     {
       "id": 4,
       "name": "Tereza Rychlá",
-      "email": "tereza@seznam.cz"
+      "email": "tereza@seznam.cz",
+      "shoppingListId": "1"
     }
   ],
   "shoppingLists": [
@@ -26,43 +50,32 @@
       "id": 1,
       "name": "Nákupní seznam #4",
       "archived": true,
-      "isOwner": true,
-      "members": [
-        {
-          "id": 1,
-          "name": "Michal Hladík",
-          "email": "michal@seznam.cz"
-        },
-        {
-          "id": 2,
-          "name": "Karel Kravčík",
-          "email": "karel@seznam.cz"
-        }
-      ]
+      "isOwner": true
     },
     {
       "id": 2,
       "name": "f",
-      "members": [
-        1
-      ],
       "archived": true,
-      "isOwner": true,
-      "products": []
+      "isOwner": true
     },
     {
       "id": 3,
       "name": "Nový",
-      "members": [],
       "archived": false,
       "isOwner": true
     }
   ],
   "products": [
     {
+      "id": 1,
+      "name": "Slanina",
+      "completed": false,
+      "shoppingListId": "1"
+    },
+    {
       "id": 2,
-      "name": "New Product",
-      "completed": true,
+      "name": "Máslo",
+      "completed": false,
       "shoppingListId": "1"
     }
   ]

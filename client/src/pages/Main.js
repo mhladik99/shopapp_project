@@ -108,7 +108,6 @@ const Main = () => {
         members: newListData.selectedMembers,
         archived: false,
         isOwner: true,
-        products: [],
       });
 
       setShoppingLists((prevShoppingLists) => [...prevShoppingLists, response.data]);
