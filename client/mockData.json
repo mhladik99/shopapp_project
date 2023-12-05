@@ -21,28 +21,52 @@
   ],
   "members": [
     {
-      "id": 1,
       "name": "Michal Hladík",
       "email": "michal@seznam.cz",
-      "shoppingListId": "1"
+      "shoppingListId": "2",
+      "id": 13
     },
     {
-      "id": 2,
       "name": "Karel Kravčík",
       "email": "karel@seznam.cz",
-      "shoppingListId": "1"
+      "shoppingListId": "2",
+      "id": 14
     },
     {
-      "id": 3,
       "name": "Petra Novotná",
       "email": "petra@seznam.cz",
-      "shoppingListId": "1"
+      "shoppingListId": "2",
+      "id": 15
     },
     {
-      "id": 4,
       "name": "Tereza Rychlá",
       "email": "tereza@seznam.cz",
-      "shoppingListId": "1"
+      "shoppingListId": "2",
+      "id": 16
+    },
+    {
+      "name": "Michal Hladík",
+      "email": "michal@seznam.cz",
+      "shoppingListId": "1",
+      "id": 21
+    },
+    {
+      "name": "Karel Kravčík",
+      "email": "karel@seznam.cz",
+      "shoppingListId": "1",
+      "id": 22
+    },
+    {
+      "name": "Petra Novotná",
+      "email": "petra@seznam.cz",
+      "shoppingListId": "1",
+      "id": 23
+    },
+    {
+      "name": "Tereza Rychlá",
+      "email": "tereza@seznam.cz",
+      "shoppingListId": "1",
+      "id": 24
     }
   ],
   "shoppingLists": [

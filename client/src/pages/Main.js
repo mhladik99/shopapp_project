@@ -105,12 +105,55 @@ const Main = () => {
       // Make a POST request to create a new shopping list
       const response = await axios.post('http://localhost:3001/shoppingLists', {
         name: newListData.listName,
-        members: newListData.selectedMembers,
         archived: false,
         isOwner: true,
       });
+  
+      const newShoppingList = response.data;
+  
+      // Use the ID of the newly created shopping list to add products
+      await Promise.all(
+        newListData.addedProducts.map(async (productName) => {
+          const productData = {
+            name: productName,
+            completed: false,
+            shoppingListId: newShoppingList.id,
+          };
+  
+          // Make a POST request to add a product to the shopping list
+          const productResponse = await axios.post(`http://localhost:3001/shoppingLists/${newShoppingList.id}/products`, productData);
+  
+          // Assuming the product API returns the added product with an ID
+          const addedProduct = productResponse.data;
+  
+          // You can handle the added product as needed
+          console.log('Added product:', addedProduct);
+        })
+      );
 
-      setShoppingLists((prevShoppingLists) => [...prevShoppingLists, response.data]);
+      // Use the ID of the newly created shopping list to add members
+      await Promise.all(
+        newListData.selectedMembers.map(async (selectedMember) => {
+          const memberData = {
+            name: selectedMember.name,
+            email: selectedMember.email,
+            shoppingListId: newShoppingList.id,
+          };
+  
+          // Make a POST request to add a product to the shopping list
+          const memberResponse = await axios.post(`http://localhost:3001/shoppingLists/${newShoppingList.id}/members`, memberData);
+          
+          console.log('Selected Member:', selectedMember);
+  
+          // Assuming the product API returns the added product with an ID
+          const addedMember = memberResponse.data;
+  
+          // You can handle the added product as needed
+          console.log('Added member:', addedMember);
+        })
+      );
+  
+      setShoppingLists((prevShoppingLists) => [...prevShoppingLists, newShoppingList]);
       setModalOpen(false);
     } catch (error) {
       console.error('Error creating shopping list:', error);

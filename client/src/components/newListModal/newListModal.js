@@ -34,7 +34,7 @@ const NewListModal = ({ open, onClose, onCreate }) => {
   useEffect(() => {
     const fetchMemberList = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/memberList');
+        const response = await axios.get('http://localhost:3001/members');
         setMemberList(response.data);
       } catch (error) {
         console.error('Error fetching member list:', error);
@@ -64,7 +64,11 @@ const NewListModal = ({ open, onClose, onCreate }) => {
     const newList = {
       listName: formState.listName,
       addedProducts: formState.addedProducts,
-      selectedMembers: formState.selectedMembers?.map((member) => member.value),
+      selectedMembers: formState.selectedMembers?.map((member) => ({
+        id: member.value,
+        name: member.label,
+        email: member.email, // Add this line if available in your options
+      })),
     };
     onCreate(newList);
     onClose();
@@ -170,9 +174,13 @@ const NewListModal = ({ open, onClose, onCreate }) => {
           ))}
         </List>
         <Select
-          options={memberList?.map((member) => ({
+          options={memberList?.filter(
+            (member, index, self) =>
+              self.findIndex((m) => m.email === member.email) === index
+          ).map((member) => ({
             value: member.id,
             label: member.name,
+            email: member.email,
           }))}
           isMulti
           value={formState.selectedMembers}
