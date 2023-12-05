@@ -60,17 +60,15 @@ const MemberList = ({ isOwner, setIsOwner, onMemberSelect }) => {
       try {
         const { name, email } = selectedMember.value;
   
-        // Make a POST request to add the selected member to the shopping list
+        // POST request to add the selected member to the shopping list
         const response = await axios.post(`http://localhost:3001/shoppingLists/${id}/members`, {
           name,
           email,
         });
   
-        // Handle the response accordingly
         if (response.status === 200 || response.status === 201) {
           const addedMember = response.data;
   
-          // Update the state with the actual response data
           setShoppingListMembers((prevMembers) => [...prevMembers, addedMember]);
   
           // Remove the selected member from the list of other members based on email
@@ -78,10 +76,8 @@ const MemberList = ({ isOwner, setIsOwner, onMemberSelect }) => {
             prevOtherMembers.filter((member) => member.value.email !== addedMember.email)
           );
   
-          // Notify the parent component about the selected member
           onMemberSelect(addedMember);
   
-          // Clear the selected member after successful addition
           setSelectedMember(null);
         } else {
           console.error('Failed to add member to the shopping list. Status:', response.status);
@@ -94,14 +90,19 @@ const MemberList = ({ isOwner, setIsOwner, onMemberSelect }) => {
 
   const handleRemoveMember = async (memberId) => {
     try {
-      // Make a DELETE request to remove the product from the shopping list
+      // Find the member to be removed
+      const removedMember = shoppingListMembers.find((member) => member.id === memberId);
+  
+      // DELETE request to remove the member from the shopping list
       await axios.delete(`http://localhost:3001/shoppingLists/${id}/members/${memberId}`);
   
-      // Update the state by removing the deleted product
+      // Update shoppingListMembers state to remove the member
       setShoppingListMembers((prevMembers) => prevMembers.filter((member) => member.id !== memberId));
+  
+      // Update otherMembers state to include the removed member
+      setOtherMembers((prevOtherMembers) => [...prevOtherMembers, { label: removedMember.name, value: removedMember }]);
     } catch (error) {
-      console.error('Error deleting product:', error);
-      // Handle error, e.g., show an error message to the user
+      console.error('Error deleting member:', error);
     }
   };
   
