@@ -17,33 +17,45 @@
       "name": "Petr Krátký",
       "email": "petr@seznam.cz",
       "shoppingListId": "3"
+    },
+    {
+      "name": "Petr Krátký",
+      "email": "petr@seznam.cz",
+      "shoppingListId": 4,
+      "id": 2
+    },
+    {
+      "name": "Petr Krátký",
+      "email": "petr@seznam.cz",
+      "shoppingListId": 5,
+      "id": 3
+    },
+    {
+      "name": "Petr Krátký",
+      "email": "petr@seznam.cz",
+      "shoppingListId": 6,
+      "id": 4
+    },
+    {
+      "name": "Petr Krátký",
+      "email": "petr@seznam.cz",
+      "shoppingListId": 7,
+      "id": 5
+    },
+    {
+      "name": "Petr Krátký",
+      "email": "petr@seznam.cz",
+      "shoppingListId": 8,
+      "id": 6
+    },
+    {
+      "name": "Petr Krátký",
+      "email": "petr@seznam.cz",
+      "shoppingListId": 9,
+      "id": 7
     }
   ],
   "members": [
-    {
-      "name": "Michal Hladík",
-      "email": "michal@seznam.cz",
-      "shoppingListId": "2",
-      "id": 13
-    },
-    {
-      "name": "Karel Kravčík",
-      "email": "karel@seznam.cz",
-      "shoppingListId": "2",
-      "id": 14
-    },
-    {
-      "name": "Petra Novotná",
-      "email": "petra@seznam.cz",
-      "shoppingListId": "2",
-      "id": 15
-    },
-    {
-      "name": "Tereza Rychlá",
-      "email": "tereza@seznam.cz",
-      "shoppingListId": "2",
-      "id": 16
-    },
     {
       "name": "Michal Hladík",
       "email": "michal@seznam.cz",
@@ -67,6 +79,72 @@
       "email": "tereza@seznam.cz",
       "shoppingListId": "1",
       "id": 24
+    },
+    {
+      "name": "Michal Hladík",
+      "email": "michal@seznam.cz",
+      "shoppingListId": "2",
+      "id": 25
+    },
+    {
+      "name": "Karel Kravčík",
+      "email": "karel@seznam.cz",
+      "shoppingListId": "2",
+      "id": 26
+    },
+    {
+      "name": "Michal Hladík",
+      "email": "michal@seznam.cz",
+      "shoppingListId": "3",
+      "id": 27
+    },
+    {
+      "name": "Petra Novotná",
+      "email": "petra@seznam.cz",
+      "shoppingListId": "3",
+      "id": 28
+    },
+    {
+      "name": "Tereza Rychlá",
+      "email": "tereza@seznam.cz",
+      "shoppingListId": "4",
+      "id": 29
+    },
+    {
+      "name": "Karel Kravčík",
+      "email": "karel@seznam.cz",
+      "shoppingListId": "6",
+      "id": 30
+    },
+    {
+      "name": "Petra Novotná",
+      "email": "petra@seznam.cz",
+      "shoppingListId": "7",
+      "id": 31
+    },
+    {
+      "name": "Michal Hladík",
+      "email": "michal@seznam.cz",
+      "shoppingListId": "8",
+      "id": 32
+    },
+    {
+      "name": "Karel Kravčík",
+      "email": "karel@seznam.cz",
+      "shoppingListId": "8",
+      "id": 33
+    },
+    {
+      "name": "Petra Novotná",
+      "email": "petra@seznam.cz",
+      "shoppingListId": "9",
+      "id": 34
+    },
+    {
+      "name": "Michal Hladík",
+      "email": "michal@seznam.cz",
+      "shoppingListId": "9",
+      "id": 35
     }
   ],
   "shoppingLists": [
@@ -74,7 +152,7 @@
       "id": 1,
       "name": "Kaufland",
       "archived": true,
-      "isOwner": true
+      "isOwner": false
     },
     {
       "id": 2,
@@ -87,19 +165,55 @@
       "name": "Albert",
       "archived": false,
       "isOwner": true
+    },
+    {
+      "name": "Billa",
+      "archived": false,
+      "isOwner": true,
+      "id": 4
+    },
+    {
+      "name": "Tesco",
+      "archived": true,
+      "isOwner": true,
+      "id": 5
+    },
+    {
+      "name": "Obi",
+      "archived": false,
+      "isOwner": false,
+      "id": 6
+    },
+    {
+      "name": "Pilulka",
+      "archived": true,
+      "isOwner": true,
+      "id": 7
+    },
+    {
+      "name": "Hruška",
+      "archived": false,
+      "isOwner": true,
+      "id": 8
+    },
+    {
+      "name": "Žabka",
+      "archived": true,
+      "isOwner": true,
+      "id": 9
     }
   ],
   "products": [
     {
       "id": 1,
       "name": "Slanina",
-      "completed": false,
+      "completed": true,
       "shoppingListId": "1"
     },
     {
       "id": 2,
       "name": "Máslo",
-      "completed": false,
+      "completed": true,
       "shoppingListId": "1"
     },
     {
@@ -128,7 +242,7 @@
     },
     {
       "name": "Hermelín",
-      "completed": false,
+      "completed": true,
       "shoppingListId": "2",
       "id": 7
     },
@@ -152,7 +266,7 @@
     },
     {
       "name": "Rohlíky",
-      "completed": false,
+      "completed": true,
       "shoppingListId": "3",
       "id": 11
     },
@@ -167,6 +281,90 @@
       "completed": false,
       "shoppingListId": "3",
       "id": 13
+    },
+    {
+      "name": "Vajíčka",
+      "completed": false,
+      "shoppingListId": "4",
+      "id": 14
+    },
+    {
+      "name": "Mrkev",
+      "completed": false,
+      "shoppingListId": "4",
+      "id": 15
+    },
+    {
+      "name": "Petržel",
+      "completed": true,
+      "shoppingListId": "4",
+      "id": 16
+    },
+    {
+      "name": "Kukuřice",
+      "completed": false,
+      "shoppingListId": "5",
+      "id": 17
+    },
+    {
+      "name": "Cola",
+      "completed": false,
+      "shoppingListId": "5",
+      "id": 18
+    },
+    {
+      "name": "Kurkuma",
+      "completed": true,
+      "shoppingListId": "5",
+      "id": 19
+    },
+    {
+      "name": "Hřebíky",
+      "completed": false,
+      "shoppingListId": "6",
+      "id": 20
+    },
+    {
+      "name": "Pila",
+      "completed": true,
+      "shoppingListId": "6",
+      "id": 21
+    },
+    {
+      "name": "Náplast",
+      "completed": false,
+      "shoppingListId": "7",
+      "id": 22
+    },
+    {
+      "name": "Paralen",
+      "completed": true,
+      "shoppingListId": "7",
+      "id": 23
+    },
+    {
+      "name": "Hrušky",
+      "completed": false,
+      "shoppingListId": "8",
+      "id": 24
+    },
+    {
+      "name": "Jablka",
+      "completed": true,
+      "shoppingListId": "8",
+      "id": 25
+    },
+    {
+      "name": "Kukuřice",
+      "completed": true,
+      "shoppingListId": "9",
+      "id": 26
+    },
+    {
+      "name": "Rukola",
+      "completed": false,
+      "shoppingListId": "9",
+      "id": 27
     }
   ]
 }
