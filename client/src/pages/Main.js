@@ -110,6 +110,18 @@ const Main = () => {
       });
   
       const newShoppingList = response.data;
+
+      const ownerResponse = await axios.post('http://localhost:3001/owners', {
+        name: 'Petr Krátký', // replace with the actual logged owner ID
+        email: 'petr@seznam.cz',
+        shoppingListId: newShoppingList.id,
+      });
+  
+      // Assuming the owner API returns the added owner with an ID
+      const addedOwner = ownerResponse.data;
+  
+      // You can handle the added owner as needed
+      console.log('Added owner:', addedOwner);
   
       // Use the ID of the newly created shopping list to add products
       await Promise.all(
