@@ -52,7 +52,7 @@
   }
   .owner-name {
     font-weight: bold;
-    margin-right: 8px; /* Adjust spacing between name and role */
+    margin-right: 8px;
   }
   .owner-name:hover {
     text-decoration: underline;
@@ -60,7 +60,7 @@
     color: #333;
   }
   .member-name {
-    margin-right: 8px; /* Adjust spacing between name and role */
+    margin-right: 8px;
   }
   .member-name:hover {
     text-decoration: underline;
