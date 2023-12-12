@@ -18,6 +18,7 @@
   .left-section, .right-section {
     padding: 10px;
     background-color: #ffffff;
+    min-height: 60vh;
   }
   
   .bottom-section {
@@ -27,6 +28,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 10vh;
   }
   
   .button-container {
@@ -42,6 +44,7 @@
     .left-section,
     .right-section {
       grid-column: 1;
+      min-height: 0vh;
     }
   }
   .member-names {
@@ -67,3 +70,29 @@
     cursor: pointer;
     color: #333;
   }
+
+/* Dark Mode Styles */
+
+.dark-mode .shopping-detail-container {
+  border: 1px solid #000000;
+}
+
+.dark-mode .top-section,
+.dark-mode .bottom-section {
+  background-color: #000000;
+}
+
+.dark-mode .left-section,
+.dark-mode .right-section {
+  background-color: var(--background-dark);
+}
+
+.dark-mode .owner-name,
+.dark-mode .member-name {
+  color: var(--text-dark);
+}
+
+.dark-mode .owner-name:hover,
+.dark-mode .member-name:hover {
+  color: #fff; /* Hover color in dark mode */
+}

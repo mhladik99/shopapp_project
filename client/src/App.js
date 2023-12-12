@@ -15,7 +15,7 @@ const App = () => {
 
   return (
     <NotificationProvider>
-      <div className={`App ${isDarkMode ? 'dark-mode' : ''}`}>
+      <div className={`App ${isDarkMode ? 'dark-mode' :''}`}>
       <ToggleSwitch isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
         <BrowserRouter>
           <Routes>

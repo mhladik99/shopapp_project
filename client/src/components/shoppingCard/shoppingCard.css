@@ -14,14 +14,40 @@
     position: absolute;
     top: 10px;
     right: 10px;
+    color: black !important;
   }
 
   .ShoppingCardLink {
     text-decoration: none;
     color: #000000;
-    transition: color 0.3s ease-in-out;
+
   }
 
   .ShoppingCardLink:hover {
     color: #007BFF;
+    transition: color 0.3s ease-in-out;
+  }
+
+/* Dark Mode Styles */
+
+.dark-mode .ShoppingCard {
+  background-color: #000000;
+  color: var(--text-dark);
+}
+
+  .dark-mode .ShoppingCardLink {
+    color: var(--text-dark);
+  }
+
+  .dark-mode .ShoppingCardLink:hover {
+    color: #007BFF;
+    transition: color 0.3s ease-in-out;
+  }
+
+  .dark-mode .ShoppingCardButtons {
+    color: white !important;
+  }
+
+ .dark-mode .ShoppingCardButtons:hover {
+    color: gray !important; /* Adjust the color and intensity as needed */
   }

@@ -25,3 +25,16 @@
         margin-left: 100px;
     }
  }
+
+ /* Dark Mode Styles */
+
+.dark-mode .back-button {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+
+.dark-mode .back-button:hover {
+  background-color: #ffffff;
+  color: #000000;
+}

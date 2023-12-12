@@ -27,10 +27,10 @@ const ShoppingCard = ({ id, name, isOwner, isArchived, onDelete, onArchive }) =>
             <div className="ShoppingCardButtons">
               {isOwner && (
                 <React.Fragment>
-                  <IconButton className="ShoppingCardButton" onClick={handleArchive}>
+                  <IconButton className="ShoppingCardButtons" onClick={handleArchive}>
                     {isArchived ? <BookmarkIcon /> : <BookmarkBorderIcon />}
                   </IconButton>
-                  <IconButton className="ShoppingCardButton" onClick={handleDelete}>
+                  <IconButton className="ShoppingCardButtons" onClick={handleDelete}>
                     <CloseIcon />
                   </IconButton>
                 </React.Fragment>
@@ -45,7 +45,6 @@ const ShoppingCard = ({ id, name, isOwner, isArchived, onDelete, onArchive }) =>
               {name}
             </Typography>
             <div className="ShoppingCardButtons">
-              {/* Display non-clickable elements for non-owners */}
             </div>
           </Paper>
         </div>
