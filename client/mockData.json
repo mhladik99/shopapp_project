@@ -365,6 +365,12 @@
       "completed": false,
       "shoppingListId": "9",
       "id": 27
+    },
+    {
+      "name": "Guma",
+      "completed": false,
+      "shoppingListId": "9",
+      "id": 28
     }
   ]
 }
