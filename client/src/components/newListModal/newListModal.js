@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useLanguage } from '../../LanguageContext';
 
 import {
   Dialog,
@@ -26,6 +27,7 @@ const customStyles = {
 }
 
 const NewListModal = ({ open, onClose, onCreate }) => {
+  const { language } = useLanguage();
   const initialFormState = {
     listName: '',
     selectedMembers: [],
@@ -55,7 +57,7 @@ const NewListModal = ({ open, onClose, onCreate }) => {
     if (!formState.listName.trim()) {
       setFormState({
         ...formState,
-        listNameError: 'Prosím napište název seznamu',
+        listNameError: (language === 'cs' ? <p>Prosím napište název seznamu</p> : <p>Please write the name of the list</p>)
       });
       return;
     }
@@ -63,7 +65,7 @@ const NewListModal = ({ open, onClose, onCreate }) => {
     if (formState.addedProducts.length === 0) {
       setFormState({
         ...formState,
-        productError: 'Prosím přidejte alespoň 1 produkt',
+        productError: (language === 'cs' ? <p>Prosím přidejte alespoň 1 produkt</p> : <p>Please add at least 1 item</p>)
       });
       return;
     }
@@ -86,7 +88,7 @@ const NewListModal = ({ open, onClose, onCreate }) => {
     if (!formState.product.trim()) {
       setFormState({
         ...formState,
-        productError: 'Prosím napište název produktu',
+        productError: (language === 'cs' ? <p>Prosím napište název produktu</p> : <p>Please write the name of the item</p>)
       });
       return;
     }
@@ -124,10 +126,10 @@ const NewListModal = ({ open, onClose, onCreate }) => {
         },
       }}
     >
-      <DialogTitle>Nový nákupní seznam</DialogTitle>
+      <DialogTitle>{language === 'cs' ? <p>Nový nákupní seznam</p> : <p>New shopping list</p>}</DialogTitle>
       <DialogContent>
         <TextField
-          label="Název seznamu"
+          label={language === 'cs' ? <p>Název seznam</p> : <p>Shopping list name</p>}
           value={formState.listName}
           onChange={(e) => {
             setFormState({
@@ -142,7 +144,7 @@ const NewListModal = ({ open, onClose, onCreate }) => {
           helperText={formState.listNameError}
         />
         <TextField
-          label="Přidat produkt"
+          label={language === 'cs' ? <p>Přidat produkt</p> : <p>Add item</p>}
           value={formState.product}
           onChange={(e) => {
             setFormState({
@@ -197,15 +199,15 @@ const NewListModal = ({ open, onClose, onCreate }) => {
               selectedMembers: selectedOptions,
             })
           }
-          placeholder="Přidat členy"
+          placeholder={language === 'cs' ? <p>Přidat členy</p> : <p>Add members</p>}
         />
       </DialogContent>
       <DialogActions>
         <MaterialUIButton onClick={handleModalClose} color="primary">
-          Zrušit
+        {language === 'cs' ? <p>Zrušit</p> : <p>Cancel</p>}
         </MaterialUIButton>
         <MaterialUIButton onClick={handleCreate} color="primary">
-          Vytvořit
+        {language === 'cs' ? <p>Vytvořit</p> : <p>Create</p>}
         </MaterialUIButton>
       </DialogActions>
     </Dialog>

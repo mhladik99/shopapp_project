@@ -7,6 +7,7 @@ import NewListModal from '../components/newListModal/newListModal';
 import ConfirmationDialog from '../components/confirmationDialog/confirmationDialog';
 import NotificationBar from '../components/notificationBar/notificationBar';
 import { useNotification } from '../NotificationContext.js'
+import { useLanguage } from '../LanguageContext';
 
 const Main = () => {
   const [shoppingLists, setShoppingLists] = useState([]);
@@ -15,6 +16,7 @@ const Main = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
   const { showNotification } = useNotification();
+  const { language } = useLanguage();
 
   useEffect(() => {
     // Fetch shopping lists from the server using Axios
@@ -81,7 +83,9 @@ const Main = () => {
       }
   
       // Use the showNotification function from the context to display the notification
-      showNotification('Nákupní seznam byl smazán.');
+      showNotification(
+        language === 'cs' ? <p>Nákupní seznam byl smazán.</p> : <p>The shopping list has been deleted.</p>
+      );
   
       setShoppingLists((prevShoppingLists) =>
         prevShoppingLists.filter((list) => list.id !== selectedCard)
@@ -120,7 +124,6 @@ const Main = () => {
       // Assuming the owner API returns the added owner with an ID
       const addedOwner = ownerResponse.data;
   
-      // You can handle the added owner as needed
       console.log('Added owner:', addedOwner);
   
       // Use the ID of the newly created shopping list to add products
@@ -138,7 +141,6 @@ const Main = () => {
           // Assuming the product API returns the added product with an ID
           const addedProduct = productResponse.data;
   
-          // You can handle the added product as needed
           console.log('Added product:', addedProduct);
         })
       );
@@ -181,10 +183,14 @@ const Main = () => {
       <div className='button-container'>
         <div className="button-group">
           <Button className="main-button" onClick={handleNewListClick}>
-            + Nový nákupní seznam
+          {language === 'cs' ? <p>+ Nový nákupní seznam</p> : <p>+ New shopping list</p>}
           </Button>
           <Button className="main-button archive-button" onClick={handleArchiveClick}>
-            {viewArchived ? 'Zobrazit všechny' : 'Archivované'}
+            {viewArchived ? (
+              language === 'cs' ? <p>Zobrazit všechny</p> : <p>View all</p>
+                ) : (
+              language === 'cs' ? <p>Archivované</p> : <p>Archived</p>
+                )}
           </Button>
         </div>
       </div>
@@ -211,7 +217,7 @@ const Main = () => {
         open={isConfirmationDialogOpen}
         onClose={handleCancelDelete}
         onConfirm={handleConfirmDelete}
-        message="Opravdu chcete tento nákupní seznam smazat?"
+        message={language === 'cs' ? <p>Opravdu chcete tento nákupní seznam smazat?</p> : <p>Do you really want to delete this shopping list?</p>}
       />
 
       {/* NewListModal component */}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import './memberList.css';
+import { useLanguage } from '../../LanguageContext';
 
 import Select from 'react-select';
 import Button from '../Button/Button';
@@ -13,6 +14,7 @@ const MemberList = ({ isOwner, setIsOwner, onMemberSelect }) => {
   const [otherMembers, setOtherMembers] = useState([]);
   const [selectedMember, setSelectedMember] = useState(null);
   const [ownerInfo, setOwnerInfo] = useState({});
+  const { language } = useLanguage();
 
   useEffect(() => {
     const fetchMembers = async () => {
@@ -117,7 +119,7 @@ const MemberList = ({ isOwner, setIsOwner, onMemberSelect }) => {
   return (
     <div>
       <h3 onClick={() => toggleRole(ownerInfo.email)}>{ownerInfo.name}</h3>
-      <Title title="Členové" />
+      <Title title={language === 'cs' ? <p>Členové</p> : <p>Members</p>} />
       <div className="container">
         <ul>
           {shoppingListMembers.map((member) => (
@@ -125,7 +127,7 @@ const MemberList = ({ isOwner, setIsOwner, onMemberSelect }) => {
               {member.name}
               {(isOwner || member.email === "michal@seznam.cz") ? (
                 <Button onClick={() => handleRemoveMember(member.id)} className="delete-button">
-                  - Odebrat
+                  {language === 'cs' ? <p>- Odebrat</p> : <p>- Remove</p>}
                 </Button>
               ) : null}
             </li>
@@ -137,11 +139,11 @@ const MemberList = ({ isOwner, setIsOwner, onMemberSelect }) => {
               value={selectedMember}
               onChange={setSelectedMember}
               options={otherMembers}
-              placeholder="Vybrat člena"
+              placeholder={language === 'cs' ? <p>Vybrat člena</p> : <p>Select member</p>}
               isDisabled={!isOwner}
             />
             <Button onClick={handleAddMember} className="toggle-button">
-              + Přidat člena
+            {language === 'cs' ? <p>+ Přidat člena</p> : <p>+ Add member</p>}
             </Button>
           </div>
         ) : null}

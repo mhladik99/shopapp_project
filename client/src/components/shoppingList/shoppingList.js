@@ -2,23 +2,33 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import './shoppingList.css';
+import { useLanguage } from '../../LanguageContext';
 
 import AddItemForm from '../addItemForm/addItemForm';
 import Button from '../Button/Button';
 
 const ShowCompletedProductsButton = ({ showCompleted, onShowCompleted }) => {
+  const { language } = useLanguage();
   const handleShowCompleted = () => {
     onShowCompleted(!showCompleted);
   };
 
   return (
     <Button onClick={handleShowCompleted} className="toggle-button">
-      {showCompleted ? 'Skrýt vyřešené' : 'Zobrazit vyřešené'}
-    </Button>
+  {showCompleted
+    ? (
+      language === 'cs' ? <p>Skrýt vyřešené</p> : <p>Hide Resolved</p>
+    )
+    : (
+      language === 'cs' ? <p>Zobrazit vyřešené</p> : <p>Show Resolved</p>
+    )
+  }
+</Button>
   );
 };
 
 const ShoppingListItem = ({ product, onToggleComplete, onDeleteProduct, showCompleted }) => {
+  const { language } = useLanguage();
   if (!showCompleted && product.completed) {
     return null; // Return null for completed products if showCompleted is false
   }
@@ -40,7 +50,7 @@ const ShoppingListItem = ({ product, onToggleComplete, onDeleteProduct, showComp
       <div className={itemClassName}>
         <span>{product.name}</span>
       </div>
-      <button onClick={() => onDeleteProduct(product.id)}>- Odebrat</button>
+      <button onClick={() => onDeleteProduct(product.id)}>{language === 'cs' ? <p>- Odebrat</p> : <p>- Remove</p>}</button>
     </li>
   );
 };
@@ -49,6 +59,7 @@ const ShoppingList = () => {
   const { id } = useParams();
   const [products, setProducts] = useState([]);
   const [showCompleted, setShowCompleted] = useState(false);
+  const { language } = useLanguage();
 
   const fetchData = async () => {
     try {

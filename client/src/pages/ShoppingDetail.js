@@ -12,6 +12,7 @@ import MemberList from '../components/memberList/memberList';
 import BackButton from '../components/backButton/backButton';
 import ConfirmationDialog from '../components/confirmationDialog/confirmationDialog';
 import NotificationBar from '../components/notificationBar/notificationBar';
+import { useLanguage } from '../LanguageContext';
 
 const ShoppingDetail = () => {
   const { id } = useParams();
@@ -22,6 +23,7 @@ const ShoppingDetail = () => {
   const [isOwner, setIsOwner] = useState(true);
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
+  const { language } = useLanguage();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,9 +89,10 @@ const ShoppingDetail = () => {
       await axios.delete(`http://localhost:3001/shoppingLists/${id}`);
       setShoppingList(null);
 
-      showNotification('Nákupní seznam byl smazán.');
+      showNotification(language === 'cs' ? <p>Nákupní seznam byl smazán.</p> : <p>The shopping list has been deleted.</p>);
 
-      navigate('/', { state: { notification: 'Nákupní seznam byl smazán.' } });
+      navigate('/');
+
     } catch (error) {
       console.error('Error deleting shopping list:', error);
     } finally {
@@ -131,11 +134,11 @@ const ShoppingDetail = () => {
 />
       </div>
       <div className="left-section">
-        <Title title="Položky" />
+        <Title title={language === 'cs' ? <p>Položky</p> : <p>Items</p>} />
         <ShoppingList />
       </div>
       <div className="right-section">
-        <Title title="Vlastník" />
+        <Title title={language === 'cs' ? <p>Vlastník</p> : <p>Owner</p>} />
         <MemberList ownerInfo={ownerInfo} isOwner={isOwner} setIsOwner={setIsOwner} onMemberSelect={handleMemberSelect} />
       </div>
       <div className="bottom-section">
@@ -146,10 +149,14 @@ const ShoppingDetail = () => {
               className={`main-button ${shoppingList && shoppingList.archived ? 'archived' : ''}`}
               onClick={handleArchivovatClick}
             >
-              {shoppingList && shoppingList.archived ? 'Odarchivovat' : 'Archivovat'}
+              {shoppingList && shoppingList.archived ? (
+              language === 'cs' ? <p>Odarchivovat</p> : <p>Unarchive</p>
+                ) : (
+              language === 'cs' ? <p>Archivovat</p> : <p>Archive</p>
+                )}
             </Button>
             <Button className="main-button delete-button" onClick={handleSmazatClick}>
-              Smazat
+            {language === 'cs' ? <p>Smazat</p> : <p>Delete</p>}
             </Button>
             </div>
           </div>
@@ -162,7 +169,7 @@ const ShoppingDetail = () => {
         open={isDeleteDialogOpen}
         onClose={handleCancelDelete}
         onConfirm={handleConfirmDelete}
-        message="Opravdu chcete tento nákupní seznam smazat?"
+        message={language === 'cs' ? <p>Opravdu chcete tento nákupní seznam smazat?</p> : <p>Do you really want to delete this shopping list?</p>}
       />
     </div>
   );

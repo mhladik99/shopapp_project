@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import './editableTitle.css';
 import axios from 'axios';
+import { useLanguage } from '../../LanguageContext';
 
 import { FaPencilAlt } from 'react-icons/fa';
 
 const EditableTitle = ({ isOwner, title, onTitleChange, shoppingListId }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState('');
+  const { language } = useLanguage();
 
   const handleEditClick = () => {
     if (isOwner) {
@@ -21,7 +23,7 @@ const EditableTitle = ({ isOwner, title, onTitleChange, shoppingListId }) => {
   
   const handleSaveClick = async () => {
     if (title.trim() === '') {
-      setError('Prosím napište název seznamu');
+      setError(language === 'cs' ? <p>Prosím napište název seznamu</p> : <p>Please write the name of the shopping list</p>);
       return;
     }
   
@@ -50,7 +52,7 @@ const EditableTitle = ({ isOwner, title, onTitleChange, shoppingListId }) => {
             />
             {error && <p className="error-message">{error}</p>}
             <button onClick={handleSaveClick} className="editable-button editable-save-button">
-              Uložit
+            {language === 'cs' ? <p>Uložit</p> : <p>Save</p>}
             </button>
           </div>
         ) : (
@@ -60,7 +62,8 @@ const EditableTitle = ({ isOwner, title, onTitleChange, shoppingListId }) => {
       <div className="editable-buttons">
         {isOwner && !isEditing && (
           <button onClick={handleEditClick} className="editable-button editable-edit-button">
-            <FaPencilAlt className="editable-button-icon" /> Upravit
+            <FaPencilAlt className="editable-button-icon" /> 
+            {language === 'cs' ? <p>Upravit</p> : <p>Edit</p>}
           </button>
         )}
       </div>

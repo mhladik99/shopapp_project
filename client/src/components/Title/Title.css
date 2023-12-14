@@ -9,11 +9,3 @@
   .title {
     font-size: 24px;
   }
-
- /* Media query for smaller screens */
- @media screen and (max-width: 1024px) {
-    .title {
-      margin-left: 100px;
-      margin-right: 100px;
-    }
-  }

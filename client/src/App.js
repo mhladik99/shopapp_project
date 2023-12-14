@@ -4,8 +4,10 @@ import Main from './pages/Main';
 import ShoppingDetail from './pages/ShoppingDetail';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { NotificationProvider } from './NotificationContext';
-import ToggleSwitch from './components/toggleSwitch/toggleSwitch.js';
+import ToggleSwitch from './components/toggleSwitch/toggleSwitch';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { LanguageProvider } from './LanguageContext';
+import LanguageSwitch from './components/languageSwitch/languageSwitch';
 
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -34,7 +36,9 @@ const App = () => {
   };
 
   return (
+  <LanguageProvider>
     <NotificationProvider>
+      <LanguageSwitch/>
       <ThemeProvider theme={isDarkMode ? darkTheme : undefined}>
         <div className={`App ${isDarkMode ? 'dark-mode' : ''}`}>
           <ToggleSwitch isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
@@ -47,6 +51,7 @@ const App = () => {
         </div>
       </ThemeProvider>
     </NotificationProvider>
+  </LanguageProvider>
   );
 };
 

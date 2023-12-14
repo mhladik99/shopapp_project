@@ -14,14 +14,6 @@ h3 {
     text-align: center;
   }
 
-   /* Media query for smaller screens */
- @media screen and (max-width: 1024px) {
-    h3 {
-      margin-left: 100px;
-      margin-right: 100px;
-    }
-  }¨
-
   .dark-mode .container ul {
     background-color: #333333;
   }
