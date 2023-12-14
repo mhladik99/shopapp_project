@@ -179,12 +179,14 @@ const Main = () => {
   return (
     <div className='container'>
       <div className='button-container'>
-        <Button className="main-button" onClick={handleNewListClick}>
-          + Nový nákupní seznam
-        </Button>
-        <Button className="main-button" onClick={handleArchiveClick}>
-          {viewArchived ? 'Zobrazit všechny' : 'Archivované'}
-        </Button>
+        <div className="button-group">
+          <Button className="main-button" onClick={handleNewListClick}>
+            + Nový nákupní seznam
+          </Button>
+          <Button className="main-button archive-button" onClick={handleArchiveClick}>
+            {viewArchived ? 'Zobrazit všechny' : 'Archivované'}
+          </Button>
+        </div>
       </div>
 
       <Grid container spacing={3}>
