@@ -141,15 +141,17 @@ const ShoppingDetail = () => {
       <div className="bottom-section">
         {isOwner && (
           <div className="button-container">
+            <div className="button-group">
             <Button
               className={`main-button ${shoppingList && shoppingList.archived ? 'archived' : ''}`}
               onClick={handleArchivovatClick}
             >
               {shoppingList && shoppingList.archived ? 'Odarchivovat' : 'Archivovat'}
             </Button>
-            <Button className="main-button" onClick={handleSmazatClick}>
+            <Button className="main-button delete-button" onClick={handleSmazatClick}>
               Smazat
             </Button>
+            </div>
           </div>
         )}
       </div>

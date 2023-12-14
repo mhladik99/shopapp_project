@@ -8,6 +8,7 @@
     margin-bottom: 20px;
     position: relative;
     height: 200px;
+    min-width: 100px;
   }
   
   .ShoppingCardButtons {
@@ -51,3 +52,4 @@
  .dark-mode .ShoppingCardButtons:hover {
     color: gray !important; /* Adjust the color and intensity as needed */
   }
+  

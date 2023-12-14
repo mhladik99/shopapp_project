@@ -21,9 +21,6 @@
 
     /* Media query for smaller screens */
  @media screen and (max-width: 1024px) {
-    .back-button {
-        margin-left: 100px;
-    }
  }
 
  /* Dark Mode Styles */

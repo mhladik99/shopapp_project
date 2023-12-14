@@ -46,6 +46,18 @@
       grid-column: 1;
       min-height: 0vh;
     }
+
+    @media only screen and (max-width: 600px) {
+      .button-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center buttons on smaller screens */
+      }
+    
+      .delete-button {
+        margin-top: 10px; /* Adjust the margin as needed */
+      }
+    }
   }
   .member-names {
     display: flex;

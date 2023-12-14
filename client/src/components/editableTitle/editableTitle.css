@@ -34,6 +34,7 @@
     padding: 10px 20px;
     margin-right: 10px;
     cursor: pointer;
+    width: auto;
   }
   
   .editable-button:hover {
@@ -60,19 +61,27 @@
 
    /* Media query for smaller screens */
  @media screen and (max-width: 1024px) {
-    .editable-title {
-        margin-left: 100px;
-    }
     .editable-buttons {
         display: flex;
         align-items: center;
         margin-top: 30px;
-        margin-right: 100px;
       }
       .editable-input {
         border: 2px solid #ccc;
         font-size: 25px;
         border-radius: 5px;
-        margin-right: 10px;
+        margin-right: 5px;
       }
+  }
+
+  @media (max-width: 600px) {
+    .editable-input {
+      width: 100%;
+    }
+  
+    .editable-button {
+      display: block;
+      width: auto;
+      margin-top: 10px;
+    }
   }

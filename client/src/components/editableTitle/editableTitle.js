@@ -49,25 +49,20 @@ const EditableTitle = ({ isOwner, title, onTitleChange, shoppingListId }) => {
               className="editable-input"
             />
             {error && <p className="error-message">{error}</p>}
+            <button onClick={handleSaveClick} className="editable-button editable-save-button">
+              Uložit
+            </button>
           </div>
         ) : (
           title
         )}
       </h1>
       <div className="editable-buttons">
-        {isOwner ? (
-          isEditing ? (
-            <>
-              <button onClick={handleSaveClick} className="editable-button editable-save-button">
-                Uložit
-              </button>
-            </>
-          ) : (
-            <button onClick={handleEditClick} className="editable-button editable-edit-button">
-              <FaPencilAlt className="editable-button-icon" /> Upravit
-            </button>
-          )
-        ) : null}
+        {isOwner && !isEditing && (
+          <button onClick={handleEditClick} className="editable-button editable-edit-button">
+            <FaPencilAlt className="editable-button-icon" /> Upravit
+          </button>
+        )}
       </div>
     </div>
   );

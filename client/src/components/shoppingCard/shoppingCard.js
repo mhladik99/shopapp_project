@@ -17,7 +17,7 @@ const ShoppingCard = ({ id, name, isOwner, isArchived, onDelete, onArchive }) =>
   };
 
   return (
-    <Grid item xs={12} sm={6} md={4}>
+    <Grid item xs={12} sm={6} md={4} alignItems="center" justifyContent="center">
       {isOwner ? (
         <Link to={`/shopping-detail/${id}`} className="ShoppingCardLink">
           <Paper elevation={3} className={`ShoppingCard ${isArchived ? 'archived' : ''}`}>

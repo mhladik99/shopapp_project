@@ -9,9 +9,8 @@ const ToggleSwitch = ({ isDarkMode, toggleTheme }) => {
     width: 62,
     height: 34,
     padding: 7,
-    position: 'absolute',
+    position: 'sticky',
     top: '10px',
-    right: '10px',
     '& .MuiSwitch-switchBase': {
       margin: 1,
       padding: 0,

@@ -189,7 +189,7 @@ const Main = () => {
         </div>
       </div>
 
-      <Grid container spacing={3}>
+      <Grid container spacing={3} alignItems="center" justifyContent="center">
         {visibleShoppingLists.map((list, index) => (
           <ShoppingCard
             key={index}
