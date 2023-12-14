@@ -63,12 +63,38 @@
   color: #ffffff;
 }
 
+.delete-button {
+  background-color: #f0f0f0;
+  color: #000000;
+  margin-left: 20px;
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: larger;
+  margin-top: 20px;
+}
+
+.delete-button:hover {
+  background-color: red;
+  color: #ffffff;
+}
+
 .button-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+}
+
+.remove-button {
+  background-color: #007BFF;
+}
+
+.remove-button:hover {
+  background-color: red;
 }
 
 /* Dark Mode Styles */
@@ -86,4 +112,15 @@
 .dark-mode .main-button:hover {
   background-color: #ffffff;
   color: #000000;
+}
+
+.dark-mode .delete-button {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.dark-mode .delete-button:hover {
+  background-color: red;
+  color: white;
+  border: black;
 }

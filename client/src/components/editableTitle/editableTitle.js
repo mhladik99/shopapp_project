@@ -63,7 +63,7 @@ const EditableTitle = ({ isOwner, title, onTitleChange, shoppingListId }) => {
         {isOwner && !isEditing && (
           <button onClick={handleEditClick} className="editable-button editable-edit-button">
             <FaPencilAlt className="editable-button-icon" /> 
-            {language === 'cs' ? <p>Upravit</p> : <p>Edit</p>}
+            {language === 'cs' ? <span>Upravit</span> : <span>Edit</span>}
           </button>
         )}
       </div>

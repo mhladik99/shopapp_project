@@ -126,7 +126,7 @@ const MemberList = ({ isOwner, setIsOwner, onMemberSelect }) => {
             <li key={member.email}>
               {member.name}
               {(isOwner || member.email === "michal@seznam.cz") ? (
-                <Button onClick={() => handleRemoveMember(member.id)} className="delete-button">
+                <Button onClick={() => handleRemoveMember(member.id)} className="remove-button">
                   {language === 'cs' ? <p>- Odebrat</p> : <p>- Remove</p>}
                 </Button>
               ) : null}

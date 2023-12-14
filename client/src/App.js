@@ -7,7 +7,7 @@ import { NotificationProvider } from './NotificationContext';
 import ToggleSwitch from './components/toggleSwitch/toggleSwitch';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { LanguageProvider } from './LanguageContext';
-import LanguageSwitch from './components/languageSwitch/languageSwitch';
+import LanguageSwitch from './components/languageSwitch/languageSwitch'
 
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -38,10 +38,10 @@ const App = () => {
   return (
   <LanguageProvider>
     <NotificationProvider>
-      <LanguageSwitch/>
       <ThemeProvider theme={isDarkMode ? darkTheme : undefined}>
         <div className={`App ${isDarkMode ? 'dark-mode' : ''}`}>
-          <ToggleSwitch isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
+        <LanguageSwitch/>
+          <ToggleSwitch isDarkMode={isDarkMode} toggleTheme={toggleTheme} /> 
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Main />} />

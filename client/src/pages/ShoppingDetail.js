@@ -155,7 +155,7 @@ const ShoppingDetail = () => {
               language === 'cs' ? <p>Archivovat</p> : <p>Archive</p>
                 )}
             </Button>
-            <Button className="main-button delete-button" onClick={handleSmazatClick}>
+            <Button className="delete-button" onClick={handleSmazatClick}>
             {language === 'cs' ? <p>Smazat</p> : <p>Delete</p>}
             </Button>
             </div>

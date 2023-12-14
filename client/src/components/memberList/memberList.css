@@ -4,6 +4,7 @@ h3 {
     justify-content: flex-start;
     text-align: left;
     font-size: 1.2rem;
+    font-weight: 250;
     color: #333;
     margin-bottom: 20px;
   }
@@ -12,6 +13,21 @@ h3 {
     align-items: flex-start;
     justify-content: flex-start;
     text-align: center;
+  }
+
+  .toggle-button {
+    background-color: black;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    width: auto;
+  }
+
+  .toggle-button:hoover {
+    background-color: #007BFF;
   }
 
   .dark-mode .container ul {
@@ -43,4 +59,8 @@ h3 {
 
 .dark-mode .my-react-select-container .my-react-select__option--is-focused {
   color: black;
+}
+
+.dark-mode h3 {
+  color: white;
 }

@@ -50,7 +50,7 @@ const ShoppingListItem = ({ product, onToggleComplete, onDeleteProduct, showComp
       <div className={itemClassName}>
         <span>{product.name}</span>
       </div>
-      <button onClick={() => onDeleteProduct(product.id)}>{language === 'cs' ? <p>- Odebrat</p> : <p>- Remove</p>}</button>
+      <Button onClick={() => onDeleteProduct(product.id)} className="remove-button">{language === 'cs' ? <p>- Odebrat</p> : <p>- Remove</p>}</Button>
     </li>
   );
 };
@@ -59,7 +59,6 @@ const ShoppingList = () => {
   const { id } = useParams();
   const [products, setProducts] = useState([]);
   const [showCompleted, setShowCompleted] = useState(false);
-  const { language } = useLanguage();
 
   const fetchData = async () => {
     try {
