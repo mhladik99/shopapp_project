@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './newListModal.css'
 
 import {
   Dialog,
@@ -17,6 +18,13 @@ import {
 } from '@material-ui/core';
 import { Add as AddIcon, Clear as DeleteIcon } from '@material-ui/icons';
 import Select from 'react-select';
+
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    color: 'black',
+  }),
+}
 
 const NewListModal = ({ open, onClose, onCreate }) => {
   const initialFormState = {
@@ -160,7 +168,7 @@ const NewListModal = ({ open, onClose, onCreate }) => {
         />
         <List dense>
           {formState.addedProducts.map((addedProduct, index) => (
-            <ListItem key={index} style={{ padding: 0 }}>
+            <ListItem key={index} style={{ padding: 0 }} >
               <ListItemText
                 primary={addedProduct}
                 style={{ margin: 0, padding: 0 }}
@@ -173,7 +181,7 @@ const NewListModal = ({ open, onClose, onCreate }) => {
             </ListItem>
           ))}
         </List>
-        <Select
+        <Select styles={customStyles}
           options={memberList?.filter(
             (member, index, self) =>
               self.findIndex((m) => m.email === member.email) === index

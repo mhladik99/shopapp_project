@@ -20,4 +20,35 @@ h3 {
       margin-left: 100px;
       margin-right: 100px;
     }
+  }¨
+
+  .dark-mode .container ul {
+    background-color: #333333;
   }
+  
+  .dark-mode .container li {
+    background-color:black;
+  }
+
+  .dark-mode .my-react-select-container .my-react-select__control {
+    background-color: black;
+    color: white !important;
+  }
+
+  .dark-mode .my-react-select-container .my-react-select__menu {
+    background-color: black;
+    color: white !important;
+  }
+
+  .dark-mode .my-react-select-container .my-react-select__single-value {
+    background-color: black;
+    color: white;
+  }
+
+  .dark-mode .my-react-select-container .my-react-select__placeholder {
+    color: white
+}
+
+.dark-mode .my-react-select-container .my-react-select__option--is-focused {
+  color: black;
+}

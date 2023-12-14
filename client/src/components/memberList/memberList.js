@@ -133,7 +133,7 @@ const MemberList = ({ isOwner, setIsOwner, onMemberSelect }) => {
         </ul>
         {otherMembers.length > 0 && isOwner ? (
           <div>
-            <Select
+            <Select className="my-react-select-container" classNamePrefix="my-react-select"
               value={selectedMember}
               onChange={setSelectedMember}
               options={otherMembers}
