@@ -12,6 +12,18 @@ import LanguageSwitch from './components/languageSwitch/languageSwitch'
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  const lightTheme = createTheme({
+    palette: {
+      type: 'light',
+      primary: {
+        main: '#007BFF',
+      },
+      secondary: {
+        main: '#ff8a65',
+      },
+    },
+  });
+
   const darkTheme = createTheme({
     palette: {
       type: 'dark',
@@ -38,7 +50,7 @@ const App = () => {
   return (
   <LanguageProvider>
     <NotificationProvider>
-      <ThemeProvider theme={isDarkMode ? darkTheme : undefined}>
+      <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
         <div className={`App ${isDarkMode ? 'dark-mode' : ''}`}>
         <LanguageSwitch/>
           <ToggleSwitch isDarkMode={isDarkMode} toggleTheme={toggleTheme} /> 
