@@ -14,6 +14,7 @@ import ConfirmationDialog from '../components/confirmationDialog/confirmationDia
 import NotificationBar from '../components/notificationBar/notificationBar';
 import ProductCompletionChart from '../components/productCompletionChart/productCompletionChart.js';
 import { useLanguage } from '../LanguageContext';
+import { ShoppingListProvider } from '../ShoppingListContext';
 
 const ShoppingDetail = () => {
   const { id } = useParams();
@@ -110,6 +111,7 @@ const ShoppingDetail = () => {
   };
 
   return (
+    <ShoppingListProvider>
     <div className="shopping-detail-container">
       <div className="top-section">
         <div className="member-names">
@@ -164,6 +166,7 @@ const ShoppingDetail = () => {
             </Button>
             </div>
           </div>
+          
         )}
       </div>
 
@@ -178,6 +181,7 @@ const ShoppingDetail = () => {
         message={language === 'cs' ? <p>Opravdu chcete tento nákupní seznam smazat?</p> : <p>Do you really want to delete this shopping list?</p>}
       />
     </div>
+    </ShoppingListProvider>
   );
 };
 

@@ -236,27 +236,15 @@
     },
     {
       "name": "Sýr",
-      "completed": false,
+      "completed": true,
       "shoppingListId": "2",
       "id": 6
     },
     {
       "name": "Hermelín",
-      "completed": true,
+      "completed": false,
       "shoppingListId": "2",
       "id": 7
-    },
-    {
-      "name": "Džus",
-      "completed": false,
-      "shoppingListId": "2",
-      "id": 8
-    },
-    {
-      "name": "Cola",
-      "completed": false,
-      "shoppingListId": "2",
-      "id": 9
     },
     {
       "name": "Chleba",
@@ -290,7 +278,7 @@
     },
     {
       "name": "Mrkev",
-      "completed": false,
+      "completed": true,
       "shoppingListId": "4",
       "id": 15
     },
@@ -305,12 +293,6 @@
       "completed": false,
       "shoppingListId": "5",
       "id": 17
-    },
-    {
-      "name": "Cola",
-      "completed": false,
-      "shoppingListId": "5",
-      "id": 18
     },
     {
       "name": "Kurkuma",
@@ -371,6 +353,24 @@
       "completed": false,
       "shoppingListId": "9",
       "id": 28
+    },
+    {
+      "name": "Hermelín",
+      "completed": false,
+      "shoppingListId": "2",
+      "id": 29
+    },
+    {
+      "name": "Fanta",
+      "completed": true,
+      "shoppingListId": "2",
+      "id": 30
+    },
+    {
+      "name": "Nový",
+      "completed": false,
+      "shoppingListId": "2",
+      "id": 31
     }
   ]
 }

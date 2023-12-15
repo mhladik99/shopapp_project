@@ -6,6 +6,7 @@ import { useLanguage } from '../../LanguageContext';
 
 import AddItemForm from '../addItemForm/addItemForm';
 import Button from '../Button/Button';
+import { useShoppingList } from '../../ShoppingListContext';
 
 const ShowCompletedProductsButton = ({ showCompleted, onShowCompleted }) => {
   const { language } = useLanguage();
@@ -56,6 +57,7 @@ const ShoppingListItem = ({ product, onToggleComplete, onDeleteProduct, showComp
 };
 
 const ShoppingList = () => {
+  const { shoppingListData, updateShoppingListData } = useShoppingList();
   const { id } = useParams();
   const [products, setProducts] = useState([]);
   const [showCompleted, setShowCompleted] = useState(false);
@@ -79,24 +81,29 @@ const ShoppingList = () => {
   const handleToggleComplete = async (productId) => {
     try {
       const productToUpdate = products.find((product) => product.id === productId);
-  
+
       const response = await axios.patch(
         `http://localhost:3001/shoppingLists/${id}/products/${productId}`,
         { completed: !productToUpdate.completed }
       );
-  
+
       if (response.status === 200) {
-        setProducts((prevProducts) =>
-          prevProducts.map((product) =>
-            product.id === productId ? { ...product, completed: !product.completed } : product
-          )
+        const updatedProducts = products.map((product) =>
+          product.id === productId ? { ...product, completed: !product.completed } : product
         );
+
+        // Update the shared state in the context first
+        updateShoppingListData({ id, products: updatedProducts });
+
+        // Update the local state
+        setProducts(updatedProducts);
       }
     } catch (error) {
       console.error('Error updating completion status:', error);
       // Handle error, e.g., show an error message to the user
     }
   };
+
 
   const handleDeleteProduct = async (productId) => {
     try {
@@ -136,6 +143,9 @@ const ShoppingList = () => {
     }
   };
   
+  useEffect(() => {
+    updateShoppingListData({ id, products });
+  }, [id, products]);
 
   return (
     <div className="container">

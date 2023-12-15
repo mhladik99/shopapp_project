@@ -1,30 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
-import axios from 'axios';
 import { useLanguage } from '../../LanguageContext';
+import { useShoppingList } from '../../ShoppingListContext';
+import './productCompletionChart.css'
 
 const ProductCompletionChart = () => {
-  const { id } = useParams();
-  const [products, setProducts] = useState([]);
+  const { shoppingListData } = useShoppingList();
   const { language } = useLanguage();
 
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3001/shoppingLists/${id}/products`);
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Error fetching product data:', error);
-      }
-    };
-
-    fetchData();
-  }, [id]);
+    const productsData = shoppingListData ? shoppingListData.products : [];
+    setProducts(productsData);
+  }, [shoppingListData]);
 
   if (!products.length) {
-    // Loading state or error handling can be added here
     return null;
   }
 
