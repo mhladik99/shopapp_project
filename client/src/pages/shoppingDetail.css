@@ -18,7 +18,15 @@
   .left-section, .right-section {
     padding: 10px;
     background-color: #ffffff;
-    min-height: 60vh;
+  }
+
+  .middle-section {
+    grid-column: 1 / span 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 35vh;
+    padding-bottom: 40px;
   }
   
   .bottom-section {
@@ -51,11 +59,11 @@
       .button-group {
         display: flex;
         flex-direction: column;
-        align-items: center; /* Center buttons on smaller screens */
+        align-items: center;
       }
     
       .delete-button {
-        margin-top: 10px; /* Adjust the margin as needed */
+        margin-top: 10px;
       }
     }
   }
@@ -106,5 +114,5 @@
 
 .dark-mode .owner-name:hover,
 .dark-mode .member-name:hover {
-  color: #fff; /* Hover color in dark mode */
+  color: #fff;
 }

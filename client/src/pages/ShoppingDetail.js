@@ -12,6 +12,7 @@ import MemberList from '../components/memberList/memberList';
 import BackButton from '../components/backButton/backButton';
 import ConfirmationDialog from '../components/confirmationDialog/confirmationDialog';
 import NotificationBar from '../components/notificationBar/notificationBar';
+import ProductCompletionChart from '../components/productCompletionChart/productCompletionChart.js';
 import { useLanguage } from '../LanguageContext';
 
 const ShoppingDetail = () => {
@@ -141,6 +142,9 @@ const ShoppingDetail = () => {
         <Title title={language === 'cs' ? <p>Vlastník</p> : <p>Owner</p>} />
         <MemberList ownerInfo={ownerInfo} isOwner={isOwner} setIsOwner={setIsOwner} onMemberSelect={handleMemberSelect} />
       </div>
+      <div className="middle-section">
+        <ProductCompletionChart/>
+      </div>
       <div className="bottom-section">
         {isOwner && (
           <div className="button-container">
@@ -162,6 +166,8 @@ const ShoppingDetail = () => {
           </div>
         )}
       </div>
+
+      
 
       <NotificationBar />
 
