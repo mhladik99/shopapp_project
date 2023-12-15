@@ -371,6 +371,42 @@
       "completed": false,
       "shoppingListId": "2",
       "id": 31
+    },
+    {
+      "name": "Vločky",
+      "completed": false,
+      "shoppingListId": "7",
+      "id": 32
+    },
+    {
+      "name": "Stromek",
+      "completed": false,
+      "shoppingListId": "7",
+      "id": 33
+    },
+    {
+      "name": "Sušenky",
+      "completed": false,
+      "shoppingListId": "8",
+      "id": 34
+    },
+    {
+      "name": "Mrkev",
+      "completed": false,
+      "shoppingListId": "5",
+      "id": 35
+    },
+    {
+      "name": "Ananas",
+      "completed": true,
+      "shoppingListId": "5",
+      "id": 36
+    },
+    {
+      "name": "Hořčice",
+      "completed": true,
+      "shoppingListId": "5",
+      "id": 37
     }
   ]
 }
