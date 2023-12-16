@@ -7,7 +7,7 @@ import NewListModal from '../components/newListModal/newListModal';
 import ConfirmationDialog from '../components/confirmationDialog/confirmationDialog';
 import NotificationBar from '../components/notificationBar/notificationBar';
 import ProductsChart from '../components/productsChart/productsChart.js';
-import { useNotification } from '../NotificationContext.js'
+import { useNotification } from '../NotificationContext.js';
 import { useLanguage } from '../LanguageContext';
 
 const Main = () => {
@@ -18,9 +18,9 @@ const Main = () => {
   const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
   const { showNotification } = useNotification();
   const { language } = useLanguage();
+  const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
-    // Fetch shopping lists from the server using Axios
     const fetchShoppingLists = async () => {
       try {
         const response = await axios.get('http://localhost:3001/shoppingLists');
@@ -32,6 +32,36 @@ const Main = () => {
 
     fetchShoppingLists();
   }, []);
+
+  useEffect(() => {
+    // Fetch data from the provided URL
+    axios.get('http://localhost:3001/products')
+      .then(response => {
+        // Structure the data to count the number of products in each shopping list
+        const countedData = response.data.reduce((acc, product) => {
+          const shoppingListId = product.shoppingListId;
+          acc[shoppingListId] = (acc[shoppingListId] || 0) + 1;
+          return acc;
+        }, {});
+
+        // Map shopping list IDs to their names
+        const shoppingListNamesMap = shoppingLists.reduce((acc, list) => {
+          acc[list.id] = list.name;
+          return acc;
+        }, {});
+
+        // Convert the counted data into an array of objects with shopping list names
+        const updatedChartData = Object.keys(countedData).map(shoppingListId => ({
+          shoppingListName: shoppingListNamesMap[shoppingListId],
+          [language === 'cs' ? 'Počet produktů v seznamu' : 'Number of products in list']: countedData[shoppingListId],
+        }));
+
+        setChartData(updatedChartData);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, [language, shoppingLists]);
 
   const handleNewListClick = () => {
     setModalOpen(true);
@@ -179,54 +209,60 @@ const Main = () => {
     ? shoppingLists.filter((list) => list.archived)
     : shoppingLists;
 
-  return (
-    <div className='container'>
-      <div className='button-container'>
-        <div className="button-group">
-          <Button className="main-button" onClick={handleNewListClick}>
-          {language === 'cs' ? <p>+ Nový nákupní seznam</p> : <p>+ New shopping list</p>}
-          </Button>
-          <Button className="main-button archive-button" onClick={handleArchiveClick}>
-            {viewArchived ? (
-              language === 'cs' ? <p>Zobrazit všechny</p> : <p>View all</p>
-                ) : (
-              language === 'cs' ? <p>Archivované</p> : <p>Archived</p>
-                )}
-          </Button>
+    return (
+      <div className="container">
+        <div className="button-container">
+          <div className="button-group">
+            <Button className="main-button" onClick={handleNewListClick}>
+              {language === 'cs' ? <p>+ Nový nákupní seznam</p> : <p>+ New shopping list</p>}
+            </Button>
+            <Button className="main-button archive-button" onClick={handleArchiveClick}>
+              {viewArchived ? (
+                language === 'cs' ? <p>Zobrazit všechny</p> : <p>View all</p>
+              ) : (
+                language === 'cs' ? <p>Archivované</p> : <p>Archived</p>
+              )}
+            </Button>
+          </div>
         </div>
+  
+        <Grid container spacing={3} alignItems="center" justifyContent="center">
+          {visibleShoppingLists.map((list, index) => (
+            <ShoppingCard
+              key={index}
+              id={list.id}
+              name={list.name}
+              isOwner={list.isOwner}
+              isArchived={list.archived}
+              onDelete={() => handleCardDelete(list.id)}
+              onArchive={() => handleCardArchive(list.id)}
+            />
+          ))}
+        </Grid>
+  
+        <ProductsChart chartData={chartData} />
+  
+        {/* Display NotificationBar */}
+        <NotificationBar />
+  
+        {/* Confirmation Dialog for Delete */}
+        <ConfirmationDialog
+          open={isConfirmationDialogOpen}
+          onClose={handleCancelDelete}
+          onConfirm={handleConfirmDelete}
+          message={
+            language === 'cs' ? (
+              <p>Opravdu chcete tento nákupní seznam smazat?</p>
+            ) : (
+              <p>Do you really want to delete this shopping list?</p>
+            )
+          }
+        />
+  
+        {/* NewListModal component */}
+        <NewListModal open={isModalOpen} onClose={() => setModalOpen(false)} onCreate={handleCreateList} />
       </div>
-
-      <Grid container spacing={3} alignItems="center" justifyContent="center">
-        {visibleShoppingLists.map((list, index) => (
-          <ShoppingCard
-            key={index}
-            id={list.id}
-            name={list.name}
-            isOwner={list.isOwner}
-            isArchived={list.archived}
-            onDelete={() => handleCardDelete(list.id)}
-            onArchive={() => handleCardArchive(list.id)}
-          />
-        ))}
-      </Grid>
-
-      <ProductsChart/>
-
-      {/* Display NotificationBar */}
-      <NotificationBar />
-
-      {/* Confirmation Dialog for Delete */}
-      <ConfirmationDialog
-        open={isConfirmationDialogOpen}
-        onClose={handleCancelDelete}
-        onConfirm={handleConfirmDelete}
-        message={language === 'cs' ? <p>Opravdu chcete tento nákupní seznam smazat?</p> : <p>Do you really want to delete this shopping list?</p>}
-      />
-
-      {/* NewListModal component */}
-      <NewListModal open={isModalOpen} onClose={() => setModalOpen(false)} onCreate={handleCreateList} />
-    </div>
-  );
-};
-
-export default Main;
+    );
+  };
+  
+  export default Main;

@@ -182,25 +182,26 @@ const NewListModal = ({ open, onClose, onCreate }) => {
             </ListItem>
           ))}
         </List>
-        <Select styles={customStyles}
-          options={memberList?.filter(
-            (member, index, self) =>
-              self.findIndex((m) => m.email === member.email) === index
-          ).map((member) => ({
-            value: member.id,
-            label: member.name,
-            email: member.email,
-          }))}
-          isMulti
-          value={formState.selectedMembers}
-          onChange={(selectedOptions) =>
-            setFormState({
-              ...formState,
-              selectedMembers: selectedOptions,
-            })
-          }
-          placeholder={language === 'cs' ? <p>Přidat členy</p> : <p>Add members</p>}
-        />
+        <Select
+  styles={customStyles}
+  options={memberList?.filter(
+    (member, index, self) =>
+      self.findIndex((m) => m.email === member.email) === index
+  ).map((member) => ({
+    value: member.id,
+    label: member.name,
+    email: member.email,
+  }))}
+  isMulti
+  value={formState.selectedMembers}
+  onChange={(selectedOptions) =>
+    setFormState({
+      ...formState,
+      selectedMembers: selectedOptions,
+    })
+  }
+  placeholder={language === 'cs' ? <p>Přidat členy</p> : <p>Add members</p>}
+/>
       </DialogContent>
       <DialogActions>
         <MaterialUIButton onClick={handleModalClose} color="primary">
