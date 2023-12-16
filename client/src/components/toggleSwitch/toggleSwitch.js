@@ -50,9 +50,11 @@ const ToggleSwitch = ({ isDarkMode, toggleTheme }) => {
 
   return (
     <FormGroup>
-      <FormControlLabel
-        control={<StyledSwitch sx={{ m: 1 }} checked={isDarkMode} onChange={toggleTheme} />}
-      />
+      <div style={{ width: '62px' }}> 
+        <FormControlLabel
+          control={<StyledSwitch sx={{ m: 1 }} checked={isDarkMode} onChange={toggleTheme} />}
+        />
+      </div>
     </FormGroup>
   );
 };
