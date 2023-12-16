@@ -2,6 +2,18 @@ import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useLanguage } from '../../LanguageContext';
 
+const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length && label) {
+      return (
+        <div className="custom-tooltip">
+          <p className="label">{`${label}: ${payload[0].value}`}</p>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
 const ProductsChart = ({ chartData }) => {
   const { language } = useLanguage();
 
@@ -11,7 +23,8 @@ const ProductsChart = ({ chartData }) => {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="shoppingListName" />
         <YAxis />
-        <Tooltip />
+        {/* Use the CustomTooltip component instead of the default Tooltip */}
+        <Tooltip content={<CustomTooltip />} />
         <Legend />
         <Bar
           dataKey={language === 'cs' ? 'Počet produktů v seznamu' : 'Number of products in list'}
