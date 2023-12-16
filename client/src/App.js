@@ -16,7 +16,7 @@ const App = () => {
     palette: {
       type: 'light',
       primary: {
-        main: '#007BFF',
+        main: '#64b5f6',
       },
       secondary: {
         main: '#ff8a65',

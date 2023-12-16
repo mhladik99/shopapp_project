@@ -6,6 +6,7 @@ import Button from '../components/Button/Button';
 import NewListModal from '../components/newListModal/newListModal';
 import ConfirmationDialog from '../components/confirmationDialog/confirmationDialog';
 import NotificationBar from '../components/notificationBar/notificationBar';
+import ProductsChart from '../components/productsChart/productsChart.js';
 import { useNotification } from '../NotificationContext.js'
 import { useLanguage } from '../LanguageContext';
 
@@ -208,6 +209,8 @@ const Main = () => {
           />
         ))}
       </Grid>
+
+      <ProductsChart/>
 
       {/* Display NotificationBar */}
       <NotificationBar />

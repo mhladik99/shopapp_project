@@ -2,12 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 import { useLanguage } from '../../LanguageContext';
 import { useShoppingList } from '../../ShoppingListContext';
-import './productCompletionChart.css'
+import './productCompletionChart.css';
+
+const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+      
+      if (data) {
+        return (
+          <div className="custom-tooltip">
+            <p className="label">{`${data.name}: ${data.value}`}</p>
+          </div>
+        );
+      }
+    }
+  
+    return null;
+  };
 
 const ProductCompletionChart = () => {
   const { shoppingListData } = useShoppingList();
   const { language } = useLanguage();
-
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -19,12 +34,15 @@ const ProductCompletionChart = () => {
     return null;
   }
 
-  const completedCount = products.filter(product => product.completed).length;
+  const completedCount = products.filter((product) => product.completed).length;
   const notCompletedCount = products.length - completedCount;
 
   const pieChartData = [
-    { name: (language === 'cs' ? "Počet vyřešených" : "Number of solved"), value: completedCount },
-    { name: (language === 'cs' ? "Počet nevyřešených" : "Number of unsolved"), value: notCompletedCount },
+    { name: language === 'cs' ? 'Počet vyřešených' : 'Number of solved', value: completedCount },
+    {
+      name: language === 'cs' ? 'Počet nevyřešených' : 'Number of unsolved',
+      value: notCompletedCount,
+    },
   ];
 
   const COLORS = ['#007BFF', '#FF8042'];
@@ -32,12 +50,20 @@ const ProductCompletionChart = () => {
   return (
     <ResponsiveContainer>
       <PieChart>
-        <Pie dataKey="value" data={pieChartData} cx="50%" cy="50%" outerRadius={80} fill="#8884d8" label>
+        <Pie
+          dataKey="value"
+          data={pieChartData}
+          cx="50%"
+          cy="50%"
+          outerRadius={80}
+          fill="#8884d8"
+          label
+        >
           {pieChartData.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
-        <Tooltip />
+        <Tooltip content={<CustomTooltip />} />
         <Legend verticalAlign="bottom" height={36} />
       </PieChart>
     </ResponsiveContainer>
