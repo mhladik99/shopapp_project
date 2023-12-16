@@ -1,20 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
-const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length && label) {
-      return (
-        <div className="custom-tooltip">
-          <p className="label">{`${label}: ${payload[0].value}`}</p>
-        </div>
-      );
-    }
-  
-    return null;
-  };
+import { useLanguage } from '../../LanguageContext'; // Assuming you have a LanguageContext
 
 const ProductsChart = () => {
+  const { language } = useLanguage(); // Assuming you have a language context providing the current language
   const [data, setData] = useState([]);
   const [shoppingListNames, setShoppingListNames] = useState({});
 
@@ -47,7 +37,7 @@ const ProductsChart = () => {
         // Convert the counted data into an array of objects with shopping list names
         const chartData = Object.keys(countedData).map(shoppingListId => ({
           shoppingListName: shoppingListNames[shoppingListId],
-          'Počet produktů v seznamu': countedData[shoppingListId],
+          [language === 'cs' ? 'Počet produktů v seznamu' : 'Number of products in list']: countedData[shoppingListId],
         }));
 
         setData(chartData);
@@ -55,17 +45,17 @@ const ProductsChart = () => {
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, [shoppingListNames]);
+  }, [shoppingListNames, language]);
 
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <BarChart data={data} margin={{ top: 5, right: 30, left: 20 }}>
+      <BarChart data={data} margin={{ top: 5, right: 30, left: 20}}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="shoppingListName" />
         <YAxis />
-        <Tooltip content={<CustomTooltip />} />
+        <Tooltip />
         <Legend />
-        <Bar dataKey="Počet produktů v seznamu" fill="#8884d8" />
+        <Bar dataKey={language === 'cs' ? 'Počet produktů v seznamu' : 'Number of products in list'} fill="#8884d8" />
       </BarChart>
     </ResponsiveContainer>
   );
